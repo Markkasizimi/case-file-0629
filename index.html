@@ -14,7 +14,8 @@ img,video{max-width:100%}
 [hidden]{display:none!important}
 </style>
 <title>CASE FILE 0629 ― 姫野 Knell Lungs</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=UnifrakturMaguntia&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&family=Noto+Serif+JP:wght@300;400;600;900&family=Noto+Sans+JP:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=UnifrakturMaguntia&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&family=Noto+Serif+JP:wght@300;400;600;900&family=Noto+Sans+JP:wght@400;700&family=New+Tegomin&family=Shippori+Mincho+B1:wght@600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chokokutai&family=Slackside+One&family=Yomogi&family=Zen+Kurenaido&family=Kaisei+Tokumin:wght@800&family=Yuji+Mai&family=Yuji+Boku&family=Zen+Antique&family=Shippori+Antique+B1&family=DotGothic16&family=Zen+Old+Mincho:wght@900&family=Yuji+Syuku&text=%E5%83%95%E3%81%AE%E5%90%8D%E5%89%8D%E3%81%AF%E5%A7%AB%E9%87%8E%E3%80%823%E6%97%A5%E5%89%8D%E3%81%AB%E6%9C%AC%E4%BA%BA%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%B0%E3%81%8B%E3%82%8A%E3%81%A0&display=swap">
 <style>
 /* Layout: 事件記事 → パスポートへズーム暗転 → 本編（端に固定のロゴと縦ナビ）→ 配信サービス風の作品棚 → 最後に照明が落ちる。色は黒×ワイン赤 */
 :root{
@@ -54,7 +55,8 @@ main{padding-right:var(--rail)}
 
 /* ===== オープニング（ロゴ動画） ===== */
 #opening{position:fixed;inset:0;z-index:100;background:#000;display:grid;place-items:center;transition:opacity .9s ease}
-#opening video{width:100%;height:100%;object-fit:cover}
+#op-logo{width:min(420px,62vw);height:auto;opacity:0;transform:scale(.96);filter:blur(6px);transition:opacity 1.4s ease,transform 2.6s cubic-bezier(.2,.7,.1,1),filter 1.4s ease}
+#opening.show #op-logo{opacity:1;transform:scale(1);filter:blur(0)}
 #opening.gone{opacity:0;pointer-events:none}
 #skip{position:absolute;right:calc(env(safe-area-inset-right,0px) + 18px);bottom:calc(env(safe-area-inset-bottom,0px) + 18px);
   background:none;border:1px solid #444;color:#aaa;font-family:var(--serif-en);letter-spacing:.2em;padding:6px 16px;cursor:pointer}
@@ -83,7 +85,13 @@ main{padding-right:var(--rail)}
 .photo{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;overflow:visible}
 img.passport{display:block;width:min(100%,420px);height:auto;aspect-ratio:1764/1254;transform:rotate(-2deg);box-shadow:0 3px 10px rgba(0,0,0,.25)}
 .caption{font-size:.7rem;font-style:italic;color:var(--ink2);text-align:center;max-width:34em}
-.intro .scroll-hint{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;color:var(--ink);z-index:3}
+.intro .scroll-hint{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.8rem;font-weight:700;letter-spacing:.3em;color:#fff;background:var(--wine);padding:8px 16px 8px 14px;z-index:3;display:flex;align-items:center;gap:10px;white-space:nowrap;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.scroll-hint .arrow{display:inline-block;font-size:1.1em}
+.intro .pin{cursor:pointer}
+.story .pin{cursor:pointer}
+@media (prefers-reduced-motion:no-preference){.scroll-hint .arrow{animation:bob 1.1s ease-in-out infinite}.intro .scroll-hint{animation:pulse 2.2s ease-in-out 3}}
+@keyframes bob{0%,100%{transform:translateY(-3px)}50%{transform:translateY(4px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
 .intro .hd{position:absolute;z-index:1;overflow:hidden;opacity:0;pointer-events:none;transform:rotate(-2deg)}
 .intro .hd img{display:block;width:100%;height:100%}
 .intro .fade{position:absolute;inset:0;z-index:2;background:#0b0a0b;opacity:0;pointer-events:none}
@@ -91,10 +99,23 @@ img.passport{display:block;width:min(100%,420px);height:auto;aspect-ratio:1764/1
 
 /* ===== 2. トップ（電車＋手袋の動画） ===== */
 .hero{position:relative;min-height:min(860px,130vw);overflow:hidden;background:#000}
-.hero .train{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.6) brightness(.45) contrast(1.1)}
+/* 怪文書：1文字ずつフォント・大きさ・傾き・地の色が違う切り抜き */
+.ransom{position:absolute;z-index:1;left:max(16px,env(safe-area-inset-left,0px));top:14%;width:min(62%,760px);margin:0;display:flex;flex-direction:column;gap:.35em;
+  font-size:clamp(1.15rem,2.9vw,2.4rem);line-height:1.1;color:#cfc6b4;pointer-events:none;width:min(48%,560px);top:20%}
+.ransom .ln{display:flex;flex-wrap:wrap;align-items:center;gap:.06em .04em}
+.ransom .ch{display:inline-block;padding:.04em .1em;visibility:hidden;transform-origin:50% 60%}
+.ransom .ch.on{visibility:visible;animation:clack .16s steps(2,end)}
+.ransom .ch.re{animation:clack .16s steps(2,end)}
+.ransom .p{background:#d9d1c1;color:#141012}
+.ransom .k{background:#000;color:#e9e3d6;outline:1px solid #2a2224}
+.ransom .r{background:#4a0e17;color:#d9cfcf}
+.ransom .n{background:#cfc6b4;color:#222;background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.06) 0 1px,transparent 1px 4px)}
+@keyframes clack{0%{transform:translate(3px,-4px) rotate(var(--r2,6deg)) scale(1.25) scaleX(var(--f,1))}100%{transform:rotate(var(--r,0deg)) scale(1) scaleX(var(--f,1))}}
+.ransom .ch{transform:rotate(var(--r,0deg)) scaleX(var(--f,1))}
+@media (max-width:700px){.ransom{width:auto;right:max(16px,env(safe-area-inset-right,0px));top:8%;font-size:clamp(1.1rem,5.4vw,1.7rem)}}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(90deg,rgba(11,10,11,.85),rgba(11,10,11,.2) 45%,rgba(11,10,11,.6)),repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}
-.hero .vid{position:absolute;z-index:2;aspect-ratio:16/9;width:118%;right:-16%;top:0}
+.hero .vid{position:absolute;z-index:2;aspect-ratio:16/9;width:118%;right:-4%;top:0}
 .hero .vid video{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(-24px 18px 0 rgba(0,0,0,.55))}
 .hero .catch{position:absolute;z-index:3;left:max(16px,env(safe-area-inset-left,0px));bottom:12%;margin:0;max-width:20em;
   font-size:clamp(1rem,2vw,1.35rem);line-height:2;letter-spacing:.08em;border-left:2px solid var(--red);padding-left:16px}
@@ -102,7 +123,7 @@ img.passport{display:block;width:min(100%,420px);height:auto;aspect-ratio:1764/1
 .glitch img{max-height:100%;width:auto;filter:contrast(1.3) saturate(.7)}
 .glitch.on{opacity:1;animation:shake .14s steps(2) infinite}
 @keyframes shake{0%{transform:translate(0,0)}50%{transform:translate(-6px,3px)}100%{transform:translate(4px,-2px)}}
-@media (max-width:700px){.hero .vid{width:190%;right:-62%;top:6%}.hero .catch{bottom:6%}}
+@media (max-width:700px){.hero .vid{width:190%;right:-37%;top:6%}.hero .catch{bottom:6%}}
 
 /* ===== 3. MESSAGE ===== */
 .msg{position:relative;overflow:hidden;min-height:min(720px,110vw);display:flex;align-items:center}
@@ -125,12 +146,12 @@ img.passport{display:block;width:min(100%,420px);height:auto;aspect-ratio:1764/1
   background-image:linear-gradient(90deg,rgba(0,0,0,.06),transparent 8%),radial-gradient(rgba(0,0,0,.05) 1px,transparent 1px);background-size:auto,3px 3px}
 .page:nth-child(even){transform:rotate(-1.2deg)}
 .page:nth-child(odd){transform:rotate(.8deg)}
-.page .body{writing-mode:vertical-rl;font-size:1rem;line-height:2.25;letter-spacing:.08em;min-width:0;overflow:hidden}
+.page .body{writing-mode:vertical-rl;font-family:"New Tegomin",var(--serif-jp);font-size:1.05rem;line-height:2.25;letter-spacing:.08em;min-width:0;overflow:hidden}
 .page .body p{margin:0 0 0 1.2em}
 .page .no{position:absolute;bottom:12px;left:16px;font-family:var(--mono);font-size:.78rem;color:var(--ink2);letter-spacing:.1em}
 .page .tag{position:absolute;top:12px;left:16px;font-family:var(--mono);font-size:.68rem;color:var(--wine);letter-spacing:.15em}
 .page.cover{justify-content:center;align-items:center;background-color:#d9d1c1}
-.page.cover h3{margin:0;writing-mode:vertical-rl;font-weight:900;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:.35em}
+.page.cover h3{margin:0;writing-mode:vertical-rl;font-family:"New Tegomin",var(--serif-jp);font-weight:400;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:.35em}
 .page.cover .stamp{position:absolute;left:28px;bottom:70px;transform:rotate(-12deg);border:3px double var(--wine);color:var(--wine);font-family:var(--mono);font-weight:700;padding:4px 10px;letter-spacing:.2em;font-size:.85rem;opacity:.85}
 .page.pic{padding:0;overflow:hidden;background:#000}
 .page.pic img{width:100%;height:100%;object-fit:cover;filter:contrast(1.1)}
@@ -255,6 +276,52 @@ footer .en{font-family:var(--serif-en);font-style:italic}
 #back{position:absolute;right:calc(env(safe-area-inset-right,0px) + 18px);bottom:calc(env(safe-area-inset-bottom,0px) + 18px);background:none;border:1px solid #333;color:#777;font-family:var(--serif-en);letter-spacing:.2em;padding:6px 14px;cursor:pointer}
 #back:hover{color:#ccc;border-color:#777}
 
+
+/* ===== バイオハザードの公式サイト風の要素 ===== */
+/* 破れた紙の境目 */
+.torn{clip-path:polygon(0.00% 0px,2.17% 7px,4.35% 11px,6.52% 4px,8.70% 0px,10.87% 4px,13.04% 14px,15.22% 0px,17.39% 16px,19.57% 11px,21.74% 16px,23.91% 7px,26.09% 4px,28.26% 2px,30.43% 7px,32.61% 3px,34.78% 3px,36.96% 0px,39.13% 2px,41.30% 9px,43.48% 2px,45.65% 7px,47.83% 4px,50.00% 7px,52.17% 2px,54.35% 7px,56.52% 4px,58.70% 14px,60.87% 7px,63.04% 9px,65.22% 9px,67.39% 0px,69.57% 4px,71.74% 4px,73.91% 9px,76.09% 3px,78.26% 5px,80.43% 14px,82.61% 16px,84.78% 3px,86.96% 11px,89.13% 16px,91.30% 9px,93.48% 7px,95.65% 0px,97.83% 11px,100.00% 16px,100.00% calc(100% - 3px),97.83% calc(100% - 3px),95.65% calc(100% - 0px),93.48% calc(100% - 0px),91.30% calc(100% - 3px),89.13% calc(100% - 15px),86.96% calc(100% - 17px),84.78% calc(100% - 3px),82.61% calc(100% - 15px),80.43% calc(100% - 17px),78.26% calc(100% - 12px),76.09% calc(100% - 15px),73.91% calc(100% - 2px),71.74% calc(100% - 8px),69.57% calc(100% - 3px),67.39% calc(100% - 10px),65.22% calc(100% - 8px),63.04% calc(100% - 6px),60.87% calc(100% - 0px),58.70% calc(100% - 17px),56.52% calc(100% - 3px),54.35% calc(100% - 3px),52.17% calc(100% - 10px),50.00% calc(100% - 5px),47.83% calc(100% - 17px),45.65% calc(100% - 8px),43.48% calc(100% - 3px),41.30% calc(100% - 0px),39.13% calc(100% - 10px),36.96% calc(100% - 17px),34.78% calc(100% - 8px),32.61% calc(100% - 15px),30.43% calc(100% - 8px),28.26% calc(100% - 3px),26.09% calc(100% - 10px),23.91% calc(100% - 2px),21.74% calc(100% - 2px),19.57% calc(100% - 0px),17.39% calc(100% - 10px),15.22% calc(100% - 5px),13.04% calc(100% - 0px),10.87% calc(100% - 3px),8.70% calc(100% - 5px),6.52% calc(100% - 8px),4.35% calc(100% - 5px),2.17% calc(100% - 2px),0.00% calc(100% - 5px))}
+.torn2{clip-path:polygon(0.00% 14px,2.17% 7px,4.35% 3px,6.52% 9px,8.70% 2px,10.87% 0px,13.04% 0px,15.22% 16px,17.39% 11px,19.57% 5px,21.74% 7px,23.91% 16px,26.09% 2px,28.26% 9px,30.43% 11px,32.61% 2px,34.78% 0px,36.96% 3px,39.13% 7px,41.30% 2px,43.48% 5px,45.65% 7px,47.83% 16px,50.00% 16px,52.17% 2px,54.35% 0px,56.52% 7px,58.70% 4px,60.87% 2px,63.04% 3px,65.22% 9px,67.39% 4px,69.57% 0px,71.74% 14px,73.91% 7px,76.09% 2px,78.26% 16px,80.43% 11px,82.61% 14px,84.78% 7px,86.96% 7px,89.13% 5px,91.30% 16px,93.48% 0px,95.65% 0px,97.83% 11px,100.00% 3px,100.00% calc(100% - 2px),97.83% calc(100% - 2px),95.65% calc(100% - 12px),93.48% calc(100% - 3px),91.30% calc(100% - 3px),89.13% calc(100% - 12px),86.96% calc(100% - 12px),84.78% calc(100% - 12px),82.61% calc(100% - 17px),80.43% calc(100% - 17px),78.26% calc(100% - 6px),76.09% calc(100% - 0px),73.91% calc(100% - 6px),71.74% calc(100% - 10px),69.57% calc(100% - 0px),67.39% calc(100% - 10px),65.22% calc(100% - 0px),63.04% calc(100% - 12px),60.87% calc(100% - 0px),58.70% calc(100% - 8px),56.52% calc(100% - 12px),54.35% calc(100% - 3px),52.17% calc(100% - 0px),50.00% calc(100% - 8px),47.83% calc(100% - 10px),45.65% calc(100% - 12px),43.48% calc(100% - 3px),41.30% calc(100% - 10px),39.13% calc(100% - 12px),36.96% calc(100% - 12px),34.78% calc(100% - 2px),32.61% calc(100% - 0px),30.43% calc(100% - 2px),28.26% calc(100% - 2px),26.09% calc(100% - 12px),23.91% calc(100% - 0px),21.74% calc(100% - 17px),19.57% calc(100% - 2px),17.39% calc(100% - 17px),15.22% calc(100% - 15px),13.04% calc(100% - 8px),10.87% calc(100% - 17px),8.70% calc(100% - 12px),6.52% calc(100% - 8px),4.35% calc(100% - 17px),2.17% calc(100% - 10px),0.00% calc(100% - 17px))}
+/* ざらざらの傷とホコリ（JSで作ったテクスチャを全体にうっすら） */
+body::after{content:"";position:fixed;inset:0;z-index:25;pointer-events:none;background-image:var(--grain,none);background-size:512px 512px;opacity:.13;mix-blend-mode:screen;transition:opacity .6s}
+body.in-intro::after{opacity:0}
+@media (prefers-reduced-motion:no-preference){body::after{animation:grain .5s steps(3) infinite}}
+@keyframes grain{0%{background-position:0 0}33%{background-position:-180px 90px}66%{background-position:120px -140px}100%{background-position:0 0}}
+/* MESSAGE：大きい白い明朝 */
+.msg .lead{font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:clamp(1.7rem,4.2vw,3.2rem);line-height:1.45;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.8);letter-spacing:.02em}
+/* 足取り：赤い丸を血の足あとでつなぐ */
+.trace{position:relative;padding-block:110px 140px;overflow:hidden}
+.trace h2{margin:0 0 50px;text-align:center;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--red);letter-spacing:.12em}
+.trace h2 small{display:block;font-family:var(--serif-en);font-weight:400;font-size:.36em;letter-spacing:.4em;color:var(--muted);margin-top:6px}
+.trace .path{position:relative;max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+.stage{position:relative;z-index:2;width:min(270px,70vw);aspect-ratio:1;border-radius:50%;border:1.5px solid var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;background:rgba(11,10,11,.75)}
+.stage:nth-child(even){align-self:flex-start;margin-left:6%}
+.stage:nth-child(odd){align-self:flex-end;margin-right:6%}
+.stage .no{font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;color:var(--red);font-size:1.05rem;letter-spacing:.12em}
+.stage h3{margin:2px 0 10px;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;color:var(--red);font-size:clamp(1.4rem,3vw,1.9rem);letter-spacing:.06em}
+.stage p{margin:0;font-size:.82rem;line-height:1.8;color:#ddd}
+.prints{position:absolute;inset:0;z-index:1;pointer-events:none}
+.fp{position:absolute;width:15px;height:30px;margin:-15px 0 0 -7px;opacity:0;transition:opacity .35s ease;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 60'%3E%3Cpath fill='%238a0f1c' d='M15 1c8 0 13 7 13 17 0 9-4 15-5 22H7C6 33 2 27 2 18 2 8 7 1 15 1z'/%3E%3Cpath fill='%238a0f1c' d='M8 44h14c1 6-1 15-7 15S7 50 8 44z'/%3E%3C/svg%3E") center/contain no-repeat}
+.fp.on{opacity:.85}
+@media (max-width:700px){.stage:nth-child(odd){margin-right:0}.stage:nth-child(even){margin-left:0}}
+/* 証拠写真：すき間なく敷き詰める */
+.gallery{background:#050404;padding-block:30px}
+.gallery .label{display:block;text-align:center;padding-block:30px 14px}
+.ggrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+.ggrid button{padding:0;border:none;background:#000;cursor:zoom-in;aspect-ratio:4/3;overflow:hidden;display:block}
+.ggrid img{width:100%;height:100%;object-fit:cover;filter:brightness(.72) contrast(1.1) saturate(.85);transition:filter .35s ease,transform .6s ease}
+.ggrid button:hover img,.ggrid button:focus-visible img{filter:none;transform:scale(1.04)}
+@media (max-width:700px){.ggrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#lightbox{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.92);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));cursor:zoom-out}
+#lightbox img{max-width:100%;max-height:88vh;width:auto;height:auto;box-shadow:0 0 40px rgba(0,0,0,.8)}
+#lightbox .tag{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);font-family:var(--mono);font-size:.75rem;letter-spacing:.2em;color:#ccc;background:#2a0b10;border:1px solid var(--red);padding:4px 12px;white-space:nowrap}
+/* 赤い筆の TOP ボタン */
+#totop{position:fixed;z-index:31;right:calc(var(--rail) + env(safe-area-inset-right,0px) + 10px);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);width:74px;height:74px;border:none;background:none;padding:0;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .4s ease,transform .25s ease}
+#totop.show{opacity:1;pointer-events:auto}
+#totop:hover{transform:rotate(-6deg) scale(1.05)}
+#totop svg{width:100%;height:100%;overflow:visible}
+#totop span{position:absolute;inset:0;display:grid;place-items:center;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:.9rem;color:#fff;letter-spacing:.06em;line-height:1;padding-top:6px}
+
 /* 動き */
 @media (prefers-reduced-motion:no-preference){
   .rv{transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.1,1);transition-delay:var(--d,0s)}
@@ -270,7 +337,7 @@ footer .en{font-family:var(--serif-en);font-style:italic}
 
 <!-- オープニング -->
 <div id="opening" aria-label="オープニング">
-  <video id="op-video" src="opening.mp4" muted playsinline preload="auto"></video>
+  <img id="op-logo" src="logo.webp" alt="姫野Projects">
   <button type="button" id="skip">SKIP</button>
 </div>
 
@@ -278,6 +345,7 @@ footer .en{font-family:var(--serif-en);font-style:italic}
 <nav class="rail" aria-label="ページ内リンク">
   <a href="#message">Message</a>
   <a href="#story">Story</a>
+  <a href="#trace">Trace</a>
   <a href="#profile">Profile</a>
   <a href="#works">Works</a>
   <a href="#links">Links</a>
@@ -316,20 +384,19 @@ footer .en{font-family:var(--serif-en);font-style:italic}
       </div>
       <div class="hd" aria-hidden="true"><img src="passport-hd.jpg" alt=""></div>
       <div class="fade" aria-hidden="true"></div>
-      <div class="scroll-hint">SCROLL</div>
+      <div class="scroll-hint"><span class="arrow">↓</span>TAP ／ SCROLL</div>
     </div>
   </section>
 
   <!-- 2. トップ -->
   <section class="hero" data-bg="#000" aria-label="トップ">
-    <video class="train" src="train-bg.mp4" muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
+    <p class="ransom" aria-label="僕の名前は姫野。3日前に日本人になったばかりだ。"><span class="ln" aria-hidden="true">僕の名前は姫野。</span><span class="ln" aria-hidden="true">3日前に日本人に</span><span class="ln" aria-hidden="true">なったばかりだ。</span></p>
     <div class="vid"><video id="hero-video" src="himeno-move.webm" poster="himeno-move-poster.png" muted loop playsinline preload="auto" aria-label="手袋をはめ直す姫野"></video></div>
-    <p class="catch">僕の名前は姫野。<br>3日前に日本人になったばかりだ。</p>
     <div class="glitch" aria-hidden="true"><img src="vhs-face.webp" alt=""></div>
   </section>
 
   <!-- 3. MESSAGE -->
-  <section class="msg" id="message" data-bg="#06100d">
+  <section class="msg torn" id="message" data-bg="#06100d">
     <div class="bg" aria-hidden="true"></div>
     <div class="body in">
       <div class="label rv">[MESSAGE]</div>
@@ -343,24 +410,24 @@ footer .en{font-family:var(--serif-en);font-style:italic}
   <section class="story" id="story" data-bg="#0e0b0c" aria-label="押収された手記">
     <div class="pin">
       <div class="ghost" aria-hidden="true">独白</div>
-      <div class="hint">[STORY] ← scroll</div>
+      <div class="hint">[STORY] ← TAP ／ SCROLL</div>
       <div class="track">
         <article class="page cover"><h3>とあるシリアルキラーの独白</h3><span class="stamp">EVIDENCE</span><span class="no">01</span></article>
         <article class="page"><span class="tag">p.2</span><div class="body">
-          <p>日本に来て2日目。</p>
+          <p>日本に来て二日目。</p>
           <p>僕の名前は姫野。</p>
-          <p>3日前に日本人になったばかりだ。</p>
+          <p>三日前に日本人になったばかりだ。</p>
           <p>それまでの僕は日本人でも、ましてや<span class="rd">ＸＸＸＸＸ</span>でもない。</p>
           <span class="tear" aria-label="欠損"></span>
         </div><span class="no">02</span></article>
         <article class="page"><span class="tag">p.3</span><div class="body">
-          <p>その客に僕は「常識とは18歳までに身につけた偏見だよ」と答えた。</p>
+          <p>その客に僕は「常識とは十八歳までに身につけた偏見だよ」と答えた。</p>
           <span class="tear" aria-label="欠損"></span>
           <p>まず、僕は何事も『手順』というのを大切にするタイプなんだけど、人にやり返すのすら僕なりの『手順』というのがある。</p>
           <p><span class="rd">ＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸ</span></p>
         </div><span class="no">03</span></article>
         <article class="page"><span class="tag">p.4</span><div class="body">
-          <p>「僕の手順通りにやったのに<span class="rd peek" tabindex="0">5分19秒</span>も持ったんだ、長かったね…おめでとう」</p>
+          <p>「僕の手順通りにやったのに<span class="rd peek" tabindex="0">五分十九秒</span>も持ったんだ、長かったね…おめでとう」</p>
           <span class="tear" aria-label="欠損"></span>
           <p>荷物の中にパスポートが入っていたので名前を見てみると、姓名が「HIMENO」だった。</p>
         </div><span class="no">04</span></article>
@@ -383,6 +450,20 @@ footer .en{font-family:var(--serif-en);font-style:italic}
           <p><a href="#works" data-open="dokuhaku">「シリアルキラーの独白」を再生する</a></p>
         </div><span class="no">08</span></article>
       </div>
+    </div>
+  </section>
+
+  <!-- 足取り -->
+  <section class="trace" id="trace" data-bg="#0b0a0b" aria-label="足取り">
+    <h2>足取り<small>TRACE</small></h2>
+    <div class="path">
+      <div class="prints" aria-hidden="true"></div>
+      <div class="stage"><span class="no">STAGE 1</span><h3>故郷</h3><p>「常識とは十八歳までに身につけた偏見だよ」</p></div>
+      <div class="stage"><span class="no">STAGE 2</span><h3>観光客</h3><p>「さっきまではお金目当てだったんだけどね、気が変わったよ」</p></div>
+      <div class="stage"><span class="no">STAGE 3</span><h3>旅券</h3><p>荷物の中のパスポート。<br>姓名は「HIMENO」。</p></div>
+      <div class="stage"><span class="no">STAGE 4</span><h3>帰国の審査</h3><p>強引に、そして「手順通り」に。<br>日本へ「帰国」する。</p></div>
+      <div class="stage"><span class="no">STAGE 5</span><h3>海</h3><p>穏やかな海を眺めながら、<br>色々な設定を考えていた。</p></div>
+      <div class="stage"><span class="no">STAGE 6</span><h3>日本</h3><p>三日前、<br>日本人になったばかりだ。</p></div>
     </div>
   </section>
 
@@ -424,11 +505,16 @@ footer .en{font-family:var(--serif-en);font-style:italic}
     <div class="figure rv" style="--d:.15s"><img src="standee.webp" alt="姫野 Knell Lungs 全身"></div>
   </section>
 
-  <!-- 7. GALLERY -->
-  <section class="strip" id="gallery" data-bg="#2a1216" aria-label="ギャラリー">
-    <div class="row">
-      <img src="g-bust.webp" alt="姫野 バストアップ"><img src="g-blood.webp" alt="血に濡れた姫野"><img src="g-halloween.webp" alt="カラスと姫野"><img src="umbrella.webp" alt="傘を差す姫野" style="background:#1a1013"><img src="vhs-face.webp" alt="VHS風の顔写真"><img src="standee.webp" alt="姫野 全身" style="background:#1a1013">
-      <img src="g-bust.webp" alt="" aria-hidden="true"><img src="g-blood.webp" alt="" aria-hidden="true"><img src="g-halloween.webp" alt="" aria-hidden="true"><img src="umbrella.webp" alt="" aria-hidden="true" style="background:#1a1013"><img src="vhs-face.webp" alt="" aria-hidden="true"><img src="standee.webp" alt="" aria-hidden="true" style="background:#1a1013">
+  <!-- 7. GALLERY（証拠写真） -->
+  <section class="gallery torn2" id="gallery" data-bg="#050404" aria-label="ギャラリー">
+    <span class="label">[EVIDENCE PHOTOS]</span>
+    <div class="ggrid">
+      <button type="button" data-no="01"><img src="g-bust.webp" alt="姫野 バストアップ"></button>
+      <button type="button" data-no="02"><img src="g-blood.webp" alt="血に濡れた姫野" style="object-position:50% 25%"></button>
+      <button type="button" data-no="03"><img src="g-halloween.webp" alt="カラスと姫野" style="object-position:50% 30%"></button>
+      <button type="button" data-no="04"><img src="umbrella.webp" alt="傘を差す姫野" style="object-position:50% 15%;background:#151012"></button>
+      <button type="button" data-no="05"><img src="vhs-face.webp" alt="VHS風の顔写真" style="object-position:50% 30%"></button>
+      <button type="button" data-no="06"><img src="phone-passport.webp" alt="スマホで撮られたパスポート" style="object-position:50% 40%"></button>
     </div>
   </section>
 
@@ -537,6 +623,8 @@ footer .en{font-family:var(--serif-en);font-style:italic}
 </main>
 
 <!-- 最後の仕掛け -->
+<div id="lightbox" hidden role="dialog" aria-label="写真を拡大"><img alt=""><span class="tag"></span></div>
+<button type="button" id="totop" aria-label="トップへ戻る"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="3" seed="6"/><feDisplacementMap in="SourceGraphic" scale="16"/></filter></defs><path filter="url(#rough)" fill="#b3121f" d="M50 6c22 0 42 15 43 40 1 24-17 45-42 47C25 95 6 76 7 50 8 24 27 6 50 6z"/></svg><span>TOP<br>↑</span></button>
 <div id="lightsout" aria-hidden="true">
   <div class="cone"></div>
   <div class="tube"></div>
@@ -551,14 +639,16 @@ footer .en{font-family:var(--serif-en);font-style:italic}
   var hasIO = 'IntersectionObserver' in window;
 
   /* ---------- オープニング ---------- */
-  var op = document.getElementById('opening'), opv = document.getElementById('op-video');
+  var op = document.getElementById('opening'), opl = document.getElementById('op-logo');
   var seen = false; try { seen = sessionStorage.getItem('hp-op') === '1'; } catch(e){}
   function endOp(){ op.classList.add('gone'); try { sessionStorage.setItem('hp-op','1'); } catch(e){} setTimeout(function(){ op.hidden = true; }, 1000); }
   if(seen || still){ op.hidden = true; }
   else {
-    var pr = opv.play(); if(pr && pr.catch) pr.catch(function(){ endOp(); });
-    opv.addEventListener('ended', endOp);
+    // ロゴがじわっと出て、少し止まってからフェードして新聞へ
+    var startOp = function(){ requestAnimationFrame(function(){ op.classList.add('show'); }); setTimeout(endOp, 3600); };
+    if(opl.complete) startOp(); else { opl.addEventListener('load', startOp); opl.addEventListener('error', endOp); }
     document.getElementById('skip').addEventListener('click', endOp);
+    op.addEventListener('click', function(ev){ if(ev.target !== document.getElementById('skip')) endOp(); });
   }
 
   /* ---------- 背景色の切り替え ---------- */
@@ -614,7 +704,46 @@ footer .en{font-family:var(--serif-en);font-style:italic}
   zoom();
 
   /* ---------- 2. トップ：動画の再生と、ときどき混ざる不穏な画像 ---------- */
-  var vid = document.getElementById('hero-video'), hero = document.querySelector('.hero'), train = hero.querySelector('.train');
+  var vid = document.getElementById('hero-video'), hero = document.querySelector('.hero');
+
+  /* 怪文書：1文字ずつ切り抜いて、カタッ、カタッと貼り付ける */
+  var FONTS = ['"Chokokutai"','"Slackside One"','"Yomogi"','"Zen Kurenaido"','"Kaisei Tokumin"','"Yuji Mai"','"Yuji Boku"','"Zen Antique"','"Shippori Antique B1"','"DotGothic16"','"Zen Old Mincho"','"Yuji Syuku"','"New Tegomin"','"Shippori Mincho B1"'];
+  var SKINS = ['', '', '', 'n', 'n', 'k', 'p', 'r'];
+  var chars = [];
+  hero.querySelectorAll('.ransom .ln').forEach(function(ln, li){
+    var s = ln.textContent; ln.textContent = '';
+    Array.from(s).forEach(function(c){ var sp = document.createElement('span'); sp.className = 'ch'; sp.textContent = c; sp.dataset.line = li; ln.appendChild(sp); chars.push(sp); });
+  });
+  // 「なったばかりだ」のどれか1文字だけ、選んだものが固定で左右反転
+  var last = chars.filter(function(sp){ return sp.dataset.line === '2' && sp.textContent !== '。'; });
+  var flipped = last[Math.floor(Math.random() * last.length)];
+  if(flipped) flipped.dataset.flip = '1';
+  function roll(sp){
+    var r = (Math.random() * 10 - 5).toFixed(1);
+    sp.style.fontFamily = FONTS[Math.floor(Math.random() * FONTS.length)] + ',serif';
+    sp.style.fontSize = (0.8 + Math.random() * 0.45).toFixed(2) + 'em';
+    sp.style.setProperty('--r', r + 'deg'); sp.style.setProperty('--r2', (r * 2 + 6) + 'deg');
+    sp.style.marginTop = (Math.random() * .3 - .15).toFixed(2) + 'em';
+    sp.style.setProperty('--f', sp.dataset.flip ? '-1' : '1');
+    sp.className = 'ch on ' + SKINS[Math.floor(Math.random() * SKINS.length)];
+  }
+  var rTimer = null, rIdx = 0, rDone = false;
+  function clackNext(){
+    if(rIdx >= chars.length){ rDone = true; rTimer = setTimeout(reroll, 1600); return; }
+    roll(chars[rIdx++]);
+    rTimer = setTimeout(clackNext, 110 + Math.random() * 170);
+  }
+  function reroll(){
+    var sp = chars[Math.floor(Math.random() * chars.length)];
+    sp.classList.remove('on','re'); void sp.offsetWidth; roll(sp); sp.classList.add('re');
+    rTimer = setTimeout(reroll, 900 + Math.random() * 1500);
+  }
+  function startRansom(){
+    if(still){ chars.forEach(roll); return; }
+    if(rTimer) return;
+    rTimer = setTimeout(rDone ? reroll : clackNext, 300);
+  }
+  function stopRansom(){ clearTimeout(rTimer); rTimer = null; }
   var glitch = hero.querySelector('.glitch'), gimg = glitch.querySelector('img');
   var gsrc = ['vhs-face.webp','phone-passport.webp'], gtimer = null, heroOn = false;
   function flash(){
@@ -630,13 +759,12 @@ footer .en{font-family:var(--serif-en);font-style:italic}
         heroOn = e.isIntersecting;
         if(heroOn){
           if(vid.paused){ vid.currentTime = 0; var p1 = vid.play(); if(p1 && p1.catch) p1.catch(function(){}); }
-          if(train.paused){ var p2 = train.play(); if(p2 && p2.catch) p2.catch(function(){}); }
-          if(!still && !gtimer) gtimer = setTimeout(flash, 2500);
-        } else { vid.pause(); clearTimeout(gtimer); gtimer = null; }
+          startRansom();
+        } else { vid.pause(); clearTimeout(gtimer); gtimer = null; stopRansom(); }
       });
     },{threshold:.35}).observe(hero);
   }
-  if(still){ vid.removeAttribute('loop'); train.removeAttribute('autoplay'); train.pause(); }
+  if(still){ vid.removeAttribute('loop'); }
 
   /* ---------- 4. STORY：縦スクロールを横送りに ---------- */
   var story = document.querySelector('.story'), track = story.querySelector('.track'), ghost = story.querySelector('.ghost');
@@ -751,15 +879,107 @@ footer .en{font-family:var(--serif-en);font-style:italic}
     window.scrollTo({top: document.getElementById('links').offsetTop, behavior:'auto'});
   });
 
+  /* ---------- タップで勝手に進む ---------- */
+  var auto = null;
+  function glide(to, ms){
+    if(auto) cancelAnimationFrame(auto.raf);
+    if(still){ window.scrollTo(0, to); return; }
+    var from = window.scrollY, t0 = performance.now();
+    auto = {};
+    (function step(now){
+      var k = Math.min(1, (now - t0) / ms), e = k < .5 ? 2*k*k : 1 - Math.pow(-2*k + 2, 2) / 2;
+      window.scrollTo(0, from + (to - from) * e);
+      if(k < 1 && auto) auto.raf = requestAnimationFrame(step); else auto = null;
+    })(t0);
+  }
+  function stopGlide(){ if(auto){ cancelAnimationFrame(auto.raf); auto = null; } }
+  window.addEventListener('wheel', stopGlide, {passive:true});
+  window.addEventListener('touchmove', stopGlide, {passive:true});
+  // 新聞：タップするとパスポートに寄って暗転し、トップまで進む
+  intro.querySelector('.pin').addEventListener('click', function(){
+    glide(hero.getBoundingClientRect().top + window.scrollY, 3400);
+  });
+  // 物語：タップするたびに1ページずつめくる（黒塗りやリンクを押したときは除く）
+  story.querySelector('.pin').addEventListener('click', function(ev){
+    if(ev.target.closest('.rd, a')) return;
+    var pg = track.querySelector('.page'), stepPx = pg.offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
+    var top = story.getBoundingClientRect().top + window.scrollY, extra = +story.dataset.extra || 0;
+    var cur = Math.max(0, window.scrollY - top);
+    var next = cur >= extra - 2 ? story.offsetHeight : Math.min(extra, Math.floor(cur / stepPx + 1.001) * stepPx);
+    glide(top + next, 700);
+  });
+
+  /* ---------- ざらざらのテクスチャを作る ---------- */
+  (function(){
+    try{
+      var c = document.createElement('canvas'); c.width = c.height = 512; var x = c.getContext('2d');
+      var img = x.createImageData(512, 512), d = img.data;
+      for(var i = 0; i < d.length; i += 4){ var v = Math.random() < .045 ? 120 + Math.random()*135 : 0; d[i] = d[i+1] = d[i+2] = v; d[i+3] = v ? 255 : 0; }
+      x.putImageData(img, 0, 0);
+      x.strokeStyle = 'rgba(255,255,255,.55)'; x.lineCap = 'round';
+      for(var k = 0; k < 26; k++){
+        x.lineWidth = Math.random() < .8 ? .6 : 1.4; x.beginPath();
+        var sx = Math.random()*512, sy = Math.random()*512, len = 20 + Math.random()*120, a = Math.random()*Math.PI*2;
+        x.moveTo(sx, sy); x.quadraticCurveTo(sx + Math.cos(a+.4)*len/2, sy + Math.sin(a+.4)*len/2, sx + Math.cos(a)*len, sy + Math.sin(a)*len); x.stroke();
+      }
+      for(var m = 0; m < 40; m++){ x.fillStyle = 'rgba(255,255,255,' + (.3 + Math.random()*.5) + ')'; x.beginPath(); x.arc(Math.random()*512, Math.random()*512, Math.random()*2.2, 0, 7); x.fill(); }
+      document.body.style.setProperty('--grain', 'url(' + c.toDataURL('image/png') + ')');
+    }catch(e){}
+  })();
+
+  /* ---------- 足取り：丸から丸へ足あとを並べる ---------- */
+  var tpath = document.querySelector('.trace .path'), prints = tpath.querySelector('.prints'), fps = [];
+  function layPrints(){
+    prints.innerHTML = ''; fps = [];
+    var st = tpath.querySelectorAll('.stage'), pr = tpath.getBoundingClientRect();
+    for(var i = 0; i < st.length - 1; i++){
+      var a = st[i].getBoundingClientRect(), b = st[i+1].getBoundingClientRect();
+      var ax = a.left + a.width/2 - pr.left, ay = a.top + a.height/2 - pr.top, bx = b.left + b.width/2 - pr.left, by = b.top + b.height/2 - pr.top;
+      var dx = bx - ax, dy = by - ay, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L;
+      var r = a.width / 2 + 8, n = Math.max(2, Math.floor((L - r * 2) / 34));
+      var ang = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+      for(var k = 0; k <= n; k++){
+        var tt = r + (L - r * 2) * (k / n), side = (k % 2 ? 1 : -1) * 9;
+        var px = ax + ux * tt - uy * side, py = ay + uy * tt + ux * side;
+        var f = document.createElement('i'); f.className = 'fp';
+        f.style.left = px + 'px'; f.style.top = py + 'px'; f.style.transform = 'rotate(' + (ang + (k % 2 ? 6 : -6)) + 'deg)' + (k % 2 ? ' scaleX(-1)' : '');
+        prints.appendChild(f); fps.push(f);
+      }
+    }
+    moveTrace();
+  }
+  function moveTrace(){
+    if(!fps.length) return;
+    var r = tpath.getBoundingClientRect(), p = (window.innerHeight * .75 - r.top) / r.height;
+    var show = still ? fps.length : Math.floor(Math.max(0, Math.min(1, p)) * fps.length);
+    fps.forEach(function(f, i){ f.classList.toggle('on', i < show); });
+  }
+
+  /* ---------- 証拠写真：押すと大きく ---------- */
+  var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img'), lbTag = lb.querySelector('.tag');
+  document.querySelectorAll('.ggrid button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var im = b.querySelector('img'); lbImg.src = im.src; lbImg.alt = im.alt; lbTag.textContent = '証拠品 No.' + b.dataset.no; lb.hidden = false;
+    });
+  });
+  lb.addEventListener('click', function(){ lb.hidden = true; });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') lb.hidden = true; });
+
+  /* ---------- TOP ボタン ---------- */
+  var totop = document.getElementById('totop');
+  totop.addEventListener('click', function(){ glide(hero.getBoundingClientRect().top + window.scrollY, 900); });
+  function moveTop(){ totop.classList.toggle('show', !document.body.classList.contains('in-intro') && hero.getBoundingClientRect().bottom < 0); }
+
   /* ---------- スクロールとリサイズ ---------- */
   var ticking = false;
   function onScroll(){
     if(ticking) return; ticking = true;
-    requestAnimationFrame(function(){ zoom(); moveStory(); moveLayers(); moveMsg(); checkBottom(); ticking = false; });
+    requestAnimationFrame(function(){ zoom(); moveStory(); moveLayers(); moveMsg(); moveTrace(); moveTop(); checkBottom(); ticking = false; });
   }
   window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('resize', function(){ measure(); sizeStory(); onScroll(); });
-  window.addEventListener('load', function(){ measure(); sizeStory(); onScroll(); });
+  window.addEventListener('resize', function(){ measure(); sizeStory(); layPrints(); onScroll(); });
+  window.addEventListener('load', function(){ measure(); sizeStory(); layPrints(); onScroll(); });
+  layPrints();
   onScroll();
 })();
 </script>
