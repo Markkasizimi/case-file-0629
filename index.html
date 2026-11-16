@@ -14,7 +14,9 @@ img,video{max-width:100%}
 [hidden]{display:none!important}
 </style>
 <title>CASE FILE 0629 ― 姫野 Knell Lungs</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=UnifrakturMaguntia&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&family=Noto+Serif+JP:wght@300;400;600;900&family=Noto+Sans+JP:wght@400;700&family=New+Tegomin&family=Shippori+Mincho+B1:wght@600;800&display=swap">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=UnifrakturMaguntia&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&family=Noto+Serif+JP:wght@300;400;600;900&family=Noto+Sans+JP:wght@400;700&family=New+Tegomin&family=Shippori+Mincho+B1:wght@600;800&family=Cinzel:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chokokutai&family=Slackside+One&family=Yomogi&family=Zen+Kurenaido&family=Kaisei+Tokumin:wght@800&family=Yuji+Mai&family=Yuji+Boku&family=Zen+Antique&family=Shippori+Antique+B1&family=DotGothic16&family=Zen+Old+Mincho:wght@900&family=Yuji+Syuku&text=%E5%83%95%E3%81%AE%E5%90%8D%E5%89%8D%E3%81%AF%E5%A7%AB%E9%87%8E%E3%80%823%E6%97%A5%E5%89%8D%E3%81%AB%E6%9C%AC%E4%BA%BA%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%B0%E3%81%8B%E3%82%8A%E3%81%A0&display=swap">
 <style>
 /* Layout: 事件記事 → パスポートへズーム暗転 → 本編（端に固定のロゴと縦ナビ）→ 配信サービス風の作品棚 → 最後に照明が落ちる。色は黒×ワイン赤 */
@@ -83,7 +85,18 @@ main{padding-right:var(--rail)}
 .col .more{display:block;height:7px;background:#bdb5a7;margin-top:7px}
 .col .more:nth-child(odd){width:86%}
 .photo{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;overflow:visible}
-img.passport{display:block;width:min(100%,420px);height:auto;aspect-ratio:1764/1254;transform:rotate(-2deg);box-shadow:0 3px 10px rgba(0,0,0,.25)}
+/* 開いた旅券：上のページに「日本国 旅券」と菊、下のページが姫野の身分事項 */
+.booklet{width:min(100%,380px);transform:rotate(-2deg);box-shadow:0 4px 14px rgba(0,0,0,.3);background:#efe9dc}
+.booklet .upper{position:relative;aspect-ratio:1764/700;border-bottom:1px solid rgba(0,0,0,.18);overflow:hidden;display:flex;align-items:center;justify-content:center;gap:9%;color:#7a1420;
+  background:linear-gradient(0deg,rgba(0,0,0,.12),transparent 14%),repeating-linear-gradient(45deg,rgba(122,20,32,.035) 0 2px,transparent 2px 7px),#efe9dc}
+.booklet .upper .wm{position:absolute;width:62%;aspect-ratio:1;left:19%;top:-10%;background:currentColor;opacity:.08;-webkit-mask:url(kiku.png) center/contain no-repeat;mask:url(kiku.png) center/contain no-repeat}
+.booklet .upper .kanji{position:relative;display:grid;grid-template-columns:repeat(3,1fr);column-gap:.7em;row-gap:.05em;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:clamp(.9rem,1.9vw,1.35rem);line-height:1.1;text-align:center}
+.booklet .upper .kanji span:nth-child(4){grid-column:1}.booklet .upper .kanji span:nth-child(5){grid-column:3}
+.booklet .upper .kiku{position:relative;width:18%;aspect-ratio:1;background:currentColor;-webkit-mask:url(kiku.png) center/contain no-repeat;mask:url(kiku.png) center/contain no-repeat}
+.booklet .upper .en{position:relative;font-family:"Cinzel",serif;text-align:center;line-height:1.15}
+.booklet .upper .en b{display:block;font-weight:700;font-size:clamp(.8rem,1.6vw,1.1rem);letter-spacing:.06em}
+.booklet .upper .en small{display:block;font-weight:500;font-size:clamp(.55rem,1.1vw,.75rem);letter-spacing:.1em}
+img.passport{display:block;width:100%;height:auto;aspect-ratio:1764/1254}
 .caption{font-size:.7rem;font-style:italic;color:var(--ink2);text-align:center;max-width:34em}
 .intro .scroll-hint{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.8rem;font-weight:700;letter-spacing:.3em;color:#fff;background:var(--wine);padding:8px 16px 8px 14px;z-index:3;display:flex;align-items:center;gap:10px;white-space:nowrap;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.3)}
 .scroll-hint .arrow{display:inline-block;font-size:1.1em}
@@ -91,10 +104,18 @@ img.passport{display:block;width:min(100%,420px);height:auto;aspect-ratio:1764/1
 .story .pin{cursor:pointer}
 @media (prefers-reduced-motion:no-preference){.scroll-hint .arrow{animation:bob 1.1s ease-in-out infinite}.intro .scroll-hint{animation:pulse 2.2s ease-in-out 3}}
 @keyframes bob{0%,100%{transform:translateY(-3px)}50%{transform:translateY(4px)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+@keyframes pulse{0%,100%{filter:none}50%{filter:brightness(1.6)}}
 .intro .hd{position:absolute;z-index:1;overflow:hidden;opacity:0;pointer-events:none;transform:rotate(-2deg)}
 .intro .hd img{display:block;width:100%;height:100%}
 .intro .fade{position:absolute;inset:0;z-index:2;background:#0b0a0b;opacity:0;pointer-events:none}
+/* 暗転の中に浮かぶ「日本国 旅券」 */
+.jpp{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,3vh,26px);color:#a3182a;opacity:0;pointer-events:none;text-align:center}
+.jpp .kanji{display:grid;grid-template-columns:repeat(3,1fr);column-gap:1.1em;row-gap:.15em;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:clamp(1.8rem,5vh,3rem);line-height:1.1}
+.jpp .kanji span:nth-child(4){grid-column:1}.jpp .kanji span:nth-child(5){grid-column:3}
+.jpp .kiku{width:clamp(110px,22vh,190px);aspect-ratio:1;background:currentColor;-webkit-mask:url(kiku.png) center/contain no-repeat;mask:url(kiku.png) center/contain no-repeat}
+.jpp .en{font-family:"Cinzel",serif;line-height:1.2}
+.jpp .en b{display:block;font-weight:700;font-size:clamp(1.4rem,4vh,2.4rem);letter-spacing:.08em}
+.jpp .en small{display:block;font-weight:500;font-size:clamp(.95rem,2.6vh,1.5rem);letter-spacing:.12em}
 @media (max-width:760px){.cols{grid-template-columns:1fr}.cols .col:not(.photo){display:none}}
 
 /* ===== 2. トップ（電車＋手袋の動画） ===== */
@@ -115,15 +136,18 @@ img.passport{display:block;width:min(100%,420px);height:auto;aspect-ratio:1764/1
 @media (max-width:700px){.ransom{width:auto;right:max(16px,env(safe-area-inset-right,0px));top:8%;font-size:clamp(1.1rem,5.4vw,1.7rem)}}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(90deg,rgba(11,10,11,.85),rgba(11,10,11,.2) 45%,rgba(11,10,11,.6)),repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}
-.hero .vid{position:absolute;z-index:2;aspect-ratio:16/9;width:118%;right:-4%;top:0}
-.hero .vid video{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(-24px 18px 0 rgba(0,0,0,.55))}
+.hero .vid{position:absolute;z-index:2;aspect-ratio:16/9;width:165%;right:-42%;top:-2%}
+.hero .vid video{display:block;width:100%;height:100%;object-fit:contain;
+  filter:grayscale(.35) sepia(.5) hue-rotate(115deg) saturate(.75) contrast(1.32) brightness(.78) drop-shadow(-24px 18px 0 rgba(0,0,0,.55));
+  -webkit-mask-image:radial-gradient(ellipse 40% 58% at 55% 34%,#000 45%,rgba(0,0,0,.35) 100%);mask-image:radial-gradient(ellipse 40% 58% at 55% 34%,#000 45%,rgba(0,0,0,.35) 100%)}
+/* ↑ 不気味な色味：病的な青緑に寄せ、顔のまわり以外を暗く沈める */
 .hero .catch{position:absolute;z-index:3;left:max(16px,env(safe-area-inset-left,0px));bottom:12%;margin:0;max-width:20em;
   font-size:clamp(1rem,2vw,1.35rem);line-height:2;letter-spacing:.08em;border-left:2px solid var(--red);padding-left:16px}
 .glitch{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;display:grid;place-items:center;background:#000}
 .glitch img{max-height:100%;width:auto;filter:contrast(1.3) saturate(.7)}
 .glitch.on{opacity:1;animation:shake .14s steps(2) infinite}
 @keyframes shake{0%{transform:translate(0,0)}50%{transform:translate(-6px,3px)}100%{transform:translate(4px,-2px)}}
-@media (max-width:700px){.hero .vid{width:190%;right:-37%;top:6%}.hero .catch{bottom:6%}}
+@media (max-width:700px){.hero{min-height:150vw}.hero .vid{width:260%;right:-74%;top:8vw}.hero .catch{bottom:6%}}
 
 /* ===== 3. MESSAGE ===== */
 .msg{position:relative;overflow:hidden;min-height:min(720px,110vw);display:flex;align-items:center}
@@ -170,7 +194,7 @@ img.passport{display:block;width:min(100%,420px);height:auto;aspect-ratio:1764/1
 
 /* ===== 4b. 本：見開きでページをめくる ===== */
 .story .track{display:none}
-.book{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);--bh:min(78vh,calc((100vw - var(--rail) - 40px) / 1.44));height:var(--bh);width:calc(var(--bh) * 1.44);perspective:2600px;z-index:2}
+.book{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);--bh:min(86vh,calc((100vw - var(--rail) - 40px) / 1.44));height:var(--bh);width:calc(var(--bh) * 1.44);perspective:2600px;z-index:2}
 .book .half,.book .leaf{position:absolute;top:0;width:50%;height:100%}
 .book .half.r{right:0}.book .half.l{left:0}
 .book .half > .page,.book .leaf .face > .page{position:absolute;inset:0;width:100%;height:100%;transform:none;box-shadow:none;margin:0;opacity:1;filter:none}
@@ -185,9 +209,13 @@ img.passport{display:block;width:min(100%,420px);height:auto;aspect-ratio:1764/1
 .book .leaf.bwd{right:0;transform-origin:0 50%}
 .book .leaf .face::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.0),rgba(0,0,0,.25));opacity:0;transition:opacity .9s}
 .book .leaf.go .face::after{opacity:1}
-.book .page .body{font-size:clamp(1.05rem,calc(var(--bh) * .028),1.5rem)}
-.book .page{padding:clamp(28px,6%,56px) clamp(22px,6%,48px)}
+.book .page .body{font-size:clamp(.98rem,calc(var(--bh) * .025),1.35rem);line-height:2.05}
+.book .page{padding:clamp(44px,10%,90px) clamp(30px,8.5%,70px)}
+.book .page .tag{top:clamp(16px,4%,30px);left:clamp(18px,5%,40px)}
+@media (max-width:700px){.book .page .body{overflow-x:auto;scrollbar-width:thin}}
+.book .page .no{bottom:clamp(14px,3.5%,28px);left:clamp(18px,5%,40px)}
 .book .page.pic{padding:0}
+.book .page.cover h3{letter-spacing:.18em;font-size:clamp(1.5rem,calc(var(--bh) * .05),2.4rem)}
 .book .blank{background:var(--paper)}
 .book-nav{position:absolute;z-index:3;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);transform:translateX(-50%);font-family:var(--mono);font-size:.75rem;letter-spacing:.2em;color:var(--muted)}
 @media (max-width:700px){
@@ -197,15 +225,29 @@ img.passport{display:block;width:min(100%,420px);height:auto;aspect-ratio:1764/1
   .book::after{display:none}
 }
 
+
+/* ===== 本の中は横書き ===== */
+.page .body{writing-mode:horizontal-tb;letter-spacing:.04em;line-height:2;text-align:justify;flex:1;min-height:0}
+.page .body p{margin:0 0 .9em}
+.page.cover{flex-direction:column}
+.page.cover h3{writing-mode:horizontal-tb;text-align:center;letter-spacing:.12em;line-height:1.5}
+.tear{display:block;inline-size:100%;block-size:10px;margin-block:.2em 1em;
+  background:linear-gradient(45deg,transparent 33%,#0e0b0c 33% 66%,transparent 66%) 0 0/12px 10px repeat-x;opacity:.8}
+.book .page .body{line-height:1.95}
+.book .page.cover h3{letter-spacing:.1em;font-size:clamp(1.3rem,calc(var(--bh) * .042),2.1rem)}
+.book .leaf.toL{right:0;left:auto;transform-origin:0 50%}
+.book .leaf.toR{left:0;right:auto;transform-origin:100% 50%}
+@media (max-width:700px){.book .page .body{overflow-x:hidden;overflow-y:auto}.book .leaf.toL,.book .leaf.toR{left:0;right:auto;width:100%;transform-origin:0 50%}}
+
 /* ===== 5. カラスと羽根（ハロウィンのパーツ） ===== */
 /* 弔鐘：完成絵をぼかした闇の前で、カラスが横切り、羽根が降る */
 .layers{position:relative;height:170vh;background:#070607}
 .layers .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .layers .haze{position:absolute;inset:-40px;background:url(g-halloween.webp) center 30%/cover no-repeat;filter:blur(22px) brightness(.28) saturate(.7);transform:scale(1.1)}
-.layers .pin::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 62% 45%,transparent 30%,rgba(7,6,7,.85) 80%);pointer-events:none;z-index:2}
+.layers .pin::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 75% 80% at 25% 30%,transparent 30%,rgba(7,6,7,.85) 80%);pointer-events:none;z-index:2}
 .layers .stage{position:absolute;z-index:1;left:62%;top:52%;--h:min(108vh,1350px);height:var(--h);width:calc(var(--h) * 0.676);max-width:none;transform:translate(-50%,-50%)}
 .layers .stage img{position:absolute;left:0;top:0;width:100%;height:100%;max-width:none;will-change:transform}
-.layers .crow{filter:brightness(.75) contrast(1.1)}
+.layers .crow{filter:brightness(1.15) contrast(1.15) drop-shadow(0 0 30px rgba(120,140,180,.18))}
 .layers .him{filter:drop-shadow(0 0 50px rgba(0,0,0,.8))}
 .layers .feathers{z-index:3;filter:invert(1) brightness(.55)}
 .layers .feathers.back{z-index:0;opacity:.35;filter:invert(1) brightness(.4) blur(2px)}
@@ -322,15 +364,15 @@ footer .en{font-family:var(--serif-en);font-style:italic}
 .torn{clip-path:polygon(0.00% 0px,2.17% 7px,4.35% 11px,6.52% 4px,8.70% 0px,10.87% 4px,13.04% 14px,15.22% 0px,17.39% 16px,19.57% 11px,21.74% 16px,23.91% 7px,26.09% 4px,28.26% 2px,30.43% 7px,32.61% 3px,34.78% 3px,36.96% 0px,39.13% 2px,41.30% 9px,43.48% 2px,45.65% 7px,47.83% 4px,50.00% 7px,52.17% 2px,54.35% 7px,56.52% 4px,58.70% 14px,60.87% 7px,63.04% 9px,65.22% 9px,67.39% 0px,69.57% 4px,71.74% 4px,73.91% 9px,76.09% 3px,78.26% 5px,80.43% 14px,82.61% 16px,84.78% 3px,86.96% 11px,89.13% 16px,91.30% 9px,93.48% 7px,95.65% 0px,97.83% 11px,100.00% 16px,100.00% calc(100% - 3px),97.83% calc(100% - 3px),95.65% calc(100% - 0px),93.48% calc(100% - 0px),91.30% calc(100% - 3px),89.13% calc(100% - 15px),86.96% calc(100% - 17px),84.78% calc(100% - 3px),82.61% calc(100% - 15px),80.43% calc(100% - 17px),78.26% calc(100% - 12px),76.09% calc(100% - 15px),73.91% calc(100% - 2px),71.74% calc(100% - 8px),69.57% calc(100% - 3px),67.39% calc(100% - 10px),65.22% calc(100% - 8px),63.04% calc(100% - 6px),60.87% calc(100% - 0px),58.70% calc(100% - 17px),56.52% calc(100% - 3px),54.35% calc(100% - 3px),52.17% calc(100% - 10px),50.00% calc(100% - 5px),47.83% calc(100% - 17px),45.65% calc(100% - 8px),43.48% calc(100% - 3px),41.30% calc(100% - 0px),39.13% calc(100% - 10px),36.96% calc(100% - 17px),34.78% calc(100% - 8px),32.61% calc(100% - 15px),30.43% calc(100% - 8px),28.26% calc(100% - 3px),26.09% calc(100% - 10px),23.91% calc(100% - 2px),21.74% calc(100% - 2px),19.57% calc(100% - 0px),17.39% calc(100% - 10px),15.22% calc(100% - 5px),13.04% calc(100% - 0px),10.87% calc(100% - 3px),8.70% calc(100% - 5px),6.52% calc(100% - 8px),4.35% calc(100% - 5px),2.17% calc(100% - 2px),0.00% calc(100% - 5px))}
 .torn2{clip-path:polygon(0.00% 14px,2.17% 7px,4.35% 3px,6.52% 9px,8.70% 2px,10.87% 0px,13.04% 0px,15.22% 16px,17.39% 11px,19.57% 5px,21.74% 7px,23.91% 16px,26.09% 2px,28.26% 9px,30.43% 11px,32.61% 2px,34.78% 0px,36.96% 3px,39.13% 7px,41.30% 2px,43.48% 5px,45.65% 7px,47.83% 16px,50.00% 16px,52.17% 2px,54.35% 0px,56.52% 7px,58.70% 4px,60.87% 2px,63.04% 3px,65.22% 9px,67.39% 4px,69.57% 0px,71.74% 14px,73.91% 7px,76.09% 2px,78.26% 16px,80.43% 11px,82.61% 14px,84.78% 7px,86.96% 7px,89.13% 5px,91.30% 16px,93.48% 0px,95.65% 0px,97.83% 11px,100.00% 3px,100.00% calc(100% - 2px),97.83% calc(100% - 2px),95.65% calc(100% - 12px),93.48% calc(100% - 3px),91.30% calc(100% - 3px),89.13% calc(100% - 12px),86.96% calc(100% - 12px),84.78% calc(100% - 12px),82.61% calc(100% - 17px),80.43% calc(100% - 17px),78.26% calc(100% - 6px),76.09% calc(100% - 0px),73.91% calc(100% - 6px),71.74% calc(100% - 10px),69.57% calc(100% - 0px),67.39% calc(100% - 10px),65.22% calc(100% - 0px),63.04% calc(100% - 12px),60.87% calc(100% - 0px),58.70% calc(100% - 8px),56.52% calc(100% - 12px),54.35% calc(100% - 3px),52.17% calc(100% - 0px),50.00% calc(100% - 8px),47.83% calc(100% - 10px),45.65% calc(100% - 12px),43.48% calc(100% - 3px),41.30% calc(100% - 10px),39.13% calc(100% - 12px),36.96% calc(100% - 12px),34.78% calc(100% - 2px),32.61% calc(100% - 0px),30.43% calc(100% - 2px),28.26% calc(100% - 2px),26.09% calc(100% - 12px),23.91% calc(100% - 0px),21.74% calc(100% - 17px),19.57% calc(100% - 2px),17.39% calc(100% - 17px),15.22% calc(100% - 15px),13.04% calc(100% - 8px),10.87% calc(100% - 17px),8.70% calc(100% - 12px),6.52% calc(100% - 8px),4.35% calc(100% - 17px),2.17% calc(100% - 10px),0.00% calc(100% - 17px))}
 /* ざらざらの傷とホコリ（JSで作ったテクスチャを全体にうっすら） */
-body::after{content:"";position:fixed;inset:0;z-index:25;pointer-events:none;background-image:var(--grain,none);background-size:512px 512px;opacity:.13;mix-blend-mode:screen;transition:opacity .6s}
+body::after{display:none;content:"";position:fixed;inset:0;z-index:25;pointer-events:none;background-image:var(--grain,none);background-size:512px 512px;opacity:.13;mix-blend-mode:screen;transition:opacity .6s}
 body.in-intro::after{opacity:0}
 @media (prefers-reduced-motion:no-preference){body::after{animation:grain .5s steps(3) infinite}}
 @keyframes grain{0%{background-position:0 0}33%{background-position:-180px 90px}66%{background-position:120px -140px}100%{background-position:0 0}}
 /* MESSAGE：大きい白い明朝 */
 .msg .lead{font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:clamp(1.7rem,4.2vw,3.2rem);line-height:1.45;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.8);letter-spacing:.02em}
 /* 足取り：防犯カメラの映像に、放送のテロップで STAGE が出る */
-.trace{position:relative;height:640vh;background:#050505}
-.trace .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center;padding:clamp(70px,11vh,110px) calc(var(--rail) + 16px) 30px max(16px,env(safe-area-inset-left,0px))}
+.trace{position:relative;background:#050505}
+.trace .pin{position:relative;height:100vh;height:100svh;cursor:pointer;overflow:hidden;display:grid;place-items:center;padding:clamp(70px,11vh,110px) calc(var(--rail) + 16px) 30px max(16px,env(safe-area-inset-left,0px))}
 .cctv{position:relative;width:min(100%,calc((100svh - 150px) * 16 / 9));aspect-ratio:16/9;background:#000;overflow:hidden;border:1px solid #1d1d1d;box-shadow:0 0 0 6px #0c0c0c,0 0 60px rgba(0,0,0,.9)}
 .cctv .feed{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.35) brightness(.78) sepia(.25) hue-rotate(60deg) saturate(.9);opacity:0;transition:opacity .2s steps(2)}
 .cctv .feed.on{opacity:1}
@@ -381,6 +423,255 @@ body.in-intro::after{opacity:0}
 #totop svg{width:100%;height:100%;overflow:visible}
 #totop span{position:absolute;inset:0;display:grid;place-items:center;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:.9rem;color:#fff;letter-spacing:.06em;line-height:1;padding-top:6px}
 
+
+/* ===== 作品一覧 案A：戦車椅子風（規制線テープ＋散らばったプレイヤー窓） ===== */
+.variant-tag{position:absolute;z-index:6;top:14px;left:max(16px,env(safe-area-inset-left,0px));font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;background:#fff;color:#000;padding:3px 10px}
+.wa{position:relative;overflow:hidden;background:#0d0b0c;padding-block:90px 110px}
+.wa h2{position:relative;z-index:3;margin:0 0 44px;text-align:center;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:clamp(2rem,5vw,3.4rem);letter-spacing:.14em;color:#fff}
+.wa h2 small{display:block;font-family:var(--mono);font-weight:700;font-size:.3em;letter-spacing:.4em;color:#e8c62e}
+.tapes{position:absolute;inset:0;z-index:0;pointer-events:none}
+.tape{position:absolute;left:-20%;width:140%;height:44px;display:flex;align-items:center;overflow:hidden;white-space:nowrap;font-family:var(--mono);font-weight:700;font-size:1rem;letter-spacing:.3em;color:#111;
+  background:repeating-linear-gradient(135deg,#e8c62e 0 26px,#e8c62e 26px 26px),#e8c62e;box-shadow:0 6px 16px rgba(0,0,0,.5)}
+.tape::before,.tape::after{content:"";position:absolute;left:0;right:0;height:6px;background:repeating-linear-gradient(135deg,#111 0 12px,transparent 12px 24px)}
+.tape::before{top:0}.tape::after{bottom:0}
+.tape span{display:inline-block;padding-left:2em;animation:tapeflow 104s linear infinite}
+.tape.t1{top:16%;transform:rotate(-8deg)}
+.tape.t2{top:52%;transform:rotate(6deg);opacity:.9}
+.tape.t3{top:82%;transform:rotate(-4deg);background:#7a1420;color:#f3e9e9}
+.tape.t3::before,.tape.t3::after{background:repeating-linear-gradient(135deg,#f3e9e9 0 12px,transparent 12px 24px);opacity:.5}
+@keyframes tapeflow{to{transform:translateX(-50%)}}
+.wins{position:relative;z-index:2;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 26px}
+.win{position:relative;border:2px solid #e8c62e;background:#141112;box-shadow:8px 8px 0 rgba(0,0,0,.6);cursor:pointer;text-align:left;padding:0;color:#fff;font:inherit;transition:transform .25s ease,box-shadow .25s ease}
+.win:nth-child(3n+1){transform:rotate(-1.6deg) translateY(10px)}
+.win:nth-child(3n+2){transform:rotate(1.2deg) translateY(-14px)}
+.win:nth-child(3n){transform:rotate(-.6deg) translateY(18px)}
+.win:hover,.win:focus-visible{transform:rotate(0) translateY(-6px) scale(1.03);box-shadow:12px 14px 0 rgba(0,0,0,.6);z-index:3}
+.win .bar{display:flex;align-items:center;gap:8px;background:#e8c62e;color:#111;font-family:var(--sans-jp);font-weight:700;font-size:.72rem;padding:4px 8px 4px 10px;letter-spacing:.06em}
+.win .bar b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.win .bar i{width:10px;height:10px;border:1.5px solid #111;border-radius:50%;flex:none}
+.win .bar i:nth-of-type(2){background:#111}
+.win .bar i:last-of-type{border-radius:0;border:none;position:relative}
+.win .bar i:last-of-type::before,.win .bar i:last-of-type::after{content:"";position:absolute;left:4px;top:-1px;width:2px;height:12px;background:#111;transform:rotate(45deg)}
+.win .bar i:last-of-type::after{transform:rotate(-45deg)}
+.win .scr{position:relative;aspect-ratio:16/9;background:#000 center/cover no-repeat;overflow:hidden}
+.win .scr img{width:100%;height:100%;object-fit:cover;display:block}
+.win .scr .ph{position:absolute;inset:0;display:grid;place-items:center;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:1.3rem;color:#ddd;text-align:center;padding:12px;background:repeating-linear-gradient(0deg,#111 0 2px,#161616 2px 4px)}
+.win .scr::after{content:"";position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:rgba(232,198,46,.92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6l9 6-9 6z' fill='%23111'/%3E%3C/svg%3E") 55% 50%/24px no-repeat;opacity:0;transition:opacity .2s}
+.win:hover .scr::after,.win:focus-visible .scr::after{opacity:1}
+.win .cap{padding:8px 12px 10px;font-family:var(--sans-jp);font-size:.78rem;color:#bbb;display:flex;justify-content:space-between;gap:8px}
+.win .cap em{font-style:normal;background:#7a1420;color:#fff;padding:0 6px;font-size:.68rem;letter-spacing:.08em}
+.win.tall .scr{aspect-ratio:16/9}
+#waModal{position:fixed;inset:0;z-index:85;background:rgba(0,0,0,.82);display:grid;place-items:center;padding:20px max(16px,env(safe-area-inset-right,0px)) 20px max(16px,env(safe-area-inset-left,0px))}
+#waModal .win,#waModal .win:hover{width:min(960px,100%);transform:none;cursor:default;box-shadow:10px 10px 0 rgba(0,0,0,.6)}
+#waModal .scr::after{display:none}
+#waModal .scr{aspect-ratio:16/9}
+#waModal .scr iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+#waModal .body{padding:14px 16px 18px;font-family:var(--sans-jp)}
+#waModal .body p{margin:0 0 12px;font-size:.9rem;line-height:1.8;color:#ddd}
+#waModal .links{display:flex;gap:10px;flex-wrap:wrap}
+#waModal .links a{background:#e8c62e;color:#111;font-weight:700;font-size:.85rem;padding:7px 16px}
+#waModal .links a.sub{background:#333;color:#fff}
+#waClose{background:none;border:none;cursor:pointer;width:16px;height:16px;position:relative;flex:none}
+#waClose::before,#waClose::after{content:"";position:absolute;left:7px;top:0;width:2px;height:16px;background:#111;transform:rotate(45deg)}
+#waClose::after{transform:rotate(-45deg)}
+@media (max-width:900px){.wins{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.wins{grid-template-columns:1fr;gap:26px}}
+@media (prefers-reduced-motion:reduce){.tape span{animation:none}}
+
+
+/* ===== 作品一覧 案B：CGWORLD風（うるさい：流れる帯、コードっぽい札、回る丸文字、真ん中が大きい送り） ===== */
+.wb{position:relative;overflow:hidden;background:#d9d6d0;color:#111;padding-block:70px 90px}
+.wb .grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px);background-size:120px 120px;pointer-events:none}
+.wb .num{position:relative;z-index:2;display:flex;align-items:center;gap:14px;margin:0 0 6px}
+.wb .num b{font-family:var(--mono);font-weight:400;font-size:clamp(1.3rem,3vw,2rem);color:#7a1420;flex:none}
+.ticker{flex:1;min-width:0;overflow:hidden;background:#111;color:#fff;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;white-space:nowrap;padding:3px 0}
+.ticker span{display:inline-block;animation:tick 72s linear infinite}
+.ticker.rev span{animation-direction:reverse}
+@keyframes tick{to{transform:translateX(-50%)}}
+.wb .slashes{font-family:var(--mono);color:#7a1420;letter-spacing:-.1em;font-size:.8rem;margin-bottom:6px}
+.wb .huge{position:relative;z-index:1;margin:10px 0 0;font-family:"Cinzel",serif;font-weight:700;font-size:clamp(3rem,13vw,10rem);line-height:.85;letter-spacing:-.02em;color:#7a1420;mix-blend-mode:multiply}
+.wb .huge .o{color:transparent;-webkit-text-stroke:2px #111}
+.wb .codewin{position:relative;z-index:3;background:#fff;border:1.5px solid #111;box-shadow:6px 6px 0 #111;max-width:420px;margin:-30px 0 0 auto;font-family:var(--sans-jp)}
+.wb .codewin .lbl{display:flex;justify-content:space-between;border-bottom:1.5px solid #111;font-family:var(--mono);font-size:.72rem;padding:2px 8px}
+.wb .codewin p{margin:0;padding:14px 16px;font-size:.92rem;line-height:1.8}
+.wb .codewin p::before{content:"■ ";color:#7a1420}
+.badge-rot{position:absolute;z-index:4;right:max(20px,calc(var(--rail) + 10px));top:120px;width:150px;height:150px;animation:spin 14s linear infinite;pointer-events:none}
+.badge-rot text{font-family:var(--mono);font-weight:700;font-size:13.5px;letter-spacing:2.6px;fill:#7a1420}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* ===== 作品一覧 案C：TOGETHER風（ネガ反転の写真が、スクロールで本来の色に戻る） ===== */
+.wc{position:relative;overflow:hidden;background:#140d0a;color:#e9dfd2;padding-block:70px 100px}
+.wc::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(122,20,32,.28),transparent 60%);pointer-events:none}
+.wc .neg{--n:1;filter:invert(var(--n)) contrast(calc(1 + var(--n) * .15)) saturate(calc(1 - var(--n) * .3));will-change:filter}
+.wc .lead{position:relative;margin:0 auto;max-width:900px;aspect-ratio:16/9;overflow:hidden;border:1px solid rgba(233,223,210,.25)}
+.wc .lead img{width:100%;height:100%;object-fit:cover;display:block}
+.wc .lead .cap{position:absolute;left:0;right:0;bottom:0;padding:40px 20px 16px;background:linear-gradient(transparent,rgba(0,0,0,.85));text-align:center}
+.wc h2.mv{margin:0;font-family:"Cinzel",serif;font-weight:400;font-size:clamp(2.2rem,8vw,5rem);letter-spacing:.06em;line-height:1}
+.wc .mvsub{font-family:"Shippori Mincho B1",var(--serif-jp);font-size:.95rem;letter-spacing:.3em;opacity:.8;margin-top:6px}
+.wc .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(8px,1.6vw,16px);max-width:900px;margin:clamp(28px,5vw,56px) auto 0}
+.wc .tile{position:relative;display:block;padding:0;border:none;background:#000;cursor:pointer;aspect-ratio:16/9;overflow:hidden;text-align:left;color:inherit}
+.wc .tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.wc .tile:hover img{transform:scale(1.04)}
+.wc .tile .ph{position:absolute;inset:0;display:grid;place-items:center;padding:12px;text-align:center;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;background:#2a201b;color:#e9dfd2}
+.wc .tile .t{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 8px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-family:"Shippori Mincho B1",var(--serif-jp);font-size:clamp(.72rem,1.6vw,.9rem);line-height:1.4}
+.wc .tile .t small{display:block;font-family:"Cinzel",serif;font-size:.68rem;letter-spacing:.2em;opacity:.75}
+@media (max-width:520px){.wc .grid{grid-template-columns:1fr}}
+
+
+/* ===== 作品一覧 案D：神椿風（真っ赤なオレンジと黒、光る枠、網点の二色写真、Visual Change） ===== */
+.wd{--o:#ff3c00;--pk:#e8336d;position:relative;overflow:hidden;background:#050303;color:#fff;padding-block:110px 110px}
+.wd::before{content:"";position:absolute;left:50%;top:-20%;width:140%;aspect-ratio:1;transform:translateX(-50%);background:radial-gradient(circle,rgba(255,60,0,.22),transparent 55%);pointer-events:none}
+.wd .crest{position:absolute;left:50%;top:40px;width:min(60vw,360px);aspect-ratio:1;transform:translateX(-50%);background:var(--o);opacity:.18;-webkit-mask:url(kiku.png) center/contain no-repeat;mask:url(kiku.png) center/contain no-repeat;animation:spin 60s linear infinite;pointer-events:none}
+.wd .ttl{position:relative;text-align:center;margin:0;font-family:"Bodoni Moda",serif;font-weight:500;font-size:clamp(3.4rem,15vw,9rem);line-height:1;letter-spacing:.04em;color:var(--o);transform:scaleY(1.35);transform-origin:50% 100%;text-shadow:0 0 18px rgba(255,60,0,.7),0 0 46px rgba(255,60,0,.45)}
+.wd .sub{position:relative;text-align:center;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;letter-spacing:.4em;margin-top:22px}
+.wd .dots{position:relative;font-family:var(--mono);font-size:7px;line-height:1.15;letter-spacing:.2em;color:var(--o);opacity:.45;white-space:nowrap;overflow:hidden;margin:34px 0;user-select:none}
+.wd .kfeat{position:relative;max-width:900px;margin:30px auto 0;border:2px solid var(--o);box-shadow:0 0 0 1px rgba(255,60,0,.4),0 0 28px rgba(255,60,0,.65),inset 0 0 22px rgba(255,60,0,.35);background:#000}
+.wd .kfeat .lab{position:absolute;z-index:3;left:-2px;top:-2px;background:var(--o);color:#000;font-family:var(--mono);font-weight:700;font-size:.72rem;letter-spacing:.12em;padding:3px 10px}
+.duo{position:relative;display:block;overflow:hidden;background:var(--o);aspect-ratio:16/9}
+.duo img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.35) brightness(1.05);mix-blend-mode:multiply;transition:filter .5s}
+.duo::after{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(0,0,0,.55) 30%,transparent 32%) 0 0/4px 4px;mix-blend-mode:multiply;opacity:.55;transition:opacity .5s;pointer-events:none}
+.duo .ph{position:absolute;inset:0;display:grid;place-items:center;padding:12px;text-align:center;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;color:#000}
+.wd.color .duo img{filter:none;mix-blend-mode:normal}
+.wd.color .duo::after{opacity:0}
+.wd.color .duo{background:#000}.wd.color .duo .ph{color:#fff}
+.wd .kfeat .play{position:absolute;z-index:2;left:50%;top:50%;width:76px;height:76px;transform:translate(-50%,-50%);border-radius:50%;border:none;background:var(--o);cursor:pointer;box-shadow:0 0 30px rgba(255,60,0,.9)}
+.wd .kfeat .play::before{content:"";position:absolute;left:31px;top:23px;border-left:22px solid #fff;border-block:15px solid transparent}
+.wd .kfeat .play:hover{transform:translate(-50%,-50%) scale(1.08)}
+.wd .kfeat .info{padding:14px 18px 16px;border-top:2px solid var(--o)}
+.wd .kfeat .info b{display:block;font-size:1.15rem;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800}
+.wd .kfeat .info small{color:#c9b8b0;font-size:.85rem}
+.wd .kfeat.kg .duo{animation:kglitch .45s steps(2) 1}
+@keyframes kglitch{0%{clip-path:inset(10% 0 60% 0);transform:translateX(-12px)}25%{clip-path:inset(55% 0 12% 0);transform:translateX(10px)}50%{clip-path:inset(30% 0 35% 0);transform:translateX(-6px)}75%{clip-path:inset(0 0 80% 0);transform:translateX(4px)}100%{clip-path:inset(0);transform:none}}
+.vchg{position:relative;display:block;margin:28px auto 0;padding:12px 40px;border:none;cursor:pointer;color:#fff;background:#120807;font-family:"Bodoni Moda",serif;font-size:1.05rem;letter-spacing:.06em;
+  clip-path:polygon(12% 0,88% 0,100% 50%,88% 100%,12% 100%,0 50%);box-shadow:inset 0 0 0 2px var(--o)}
+.vchg::before{content:"";position:absolute;inset:0;clip-path:inherit;border:2px solid var(--o);pointer-events:none}
+.vchg span{position:relative}
+.wd .list{max-width:900px;margin:40px auto 0;list-style:none;padding:0}
+.wd .list li{border-bottom:1px solid rgba(255,60,0,.45)}
+.wd .list button{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center;width:100%;padding:12px 0;background:none;border:none;color:inherit;text-align:left;cursor:pointer}
+.wd .list .duo{width:120px}
+.wd .list em{display:inline-block;font-style:normal;background:var(--o);color:#000;font-family:var(--mono);font-weight:700;font-size:.66rem;letter-spacing:.1em;padding:1px 7px;margin-bottom:5px}
+.wd .list .no{font-family:var(--mono);font-size:.72rem;color:var(--o);margin-left:8px}
+.wd .list b{display:block;font-weight:700;font-size:.95rem}
+.wd .list button.on b{color:var(--o);text-shadow:0 0 10px rgba(255,60,0,.6)}
+.wd .list button:hover .duo img{filter:none;mix-blend-mode:normal}
+.kbtn{display:block;max-width:560px;margin:44px auto 0;padding:16px;text-align:center;color:#fff;font-family:"Bodoni Moda",serif;font-size:1.5rem;letter-spacing:.14em;transform:scaleY(1.1);
+  background:linear-gradient(90deg,#1a0a06,var(--o) 60%,var(--pk));box-shadow:0 0 22px rgba(255,60,0,.75)}
+@media (max-width:520px){.wd .list button{grid-template-columns:96px 1fr}.wd .list .duo{width:96px}}
+
+/* ===== Spotify：盗聴受信機 ===== */
+.rx-sec{position:relative;background:#0b0809;color:#ddd;padding-block:80px 90px;overflow:hidden}
+.rx-sec .head{text-align:center;margin-bottom:30px}
+.rx-sec .head p{margin:0;font-family:var(--mono);font-size:.75rem;letter-spacing:.3em;color:#7a1420}
+.rx-sec .head h2{margin:8px 0 0;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:clamp(1.6rem,4.5vw,2.4rem);letter-spacing:.2em}
+.rx{position:relative;max-width:760px;margin:0 auto;padding:18px 18px 22px;border-radius:14px;
+  background:linear-gradient(#2a2526,#161314);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -2px 0 rgba(0,0,0,.6),0 24px 50px rgba(0,0,0,.7)}
+.rx::before,.rx::after{content:"";position:absolute;top:12px;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#888,#222)}
+.rx::before{left:12px}.rx::after{right:12px}
+.rx .brand{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;color:#8a8283;padding:0 16px 10px}
+.rx .brand b{color:#c6bfc0}
+.rx .lcd{position:relative;border-radius:6px;background:#150404;padding:12px 16px;box-shadow:inset 0 0 0 2px #000,inset 0 0 24px rgba(0,0,0,.9);font-family:"DotGothic16",var(--mono);color:#ff3b2a;text-shadow:0 0 6px rgba(255,59,42,.85);overflow:hidden}
+.rx .lcd::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 1px,transparent 1px 3px);pointer-events:none}
+.rx .lcd .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rx .lcd .fq{font-size:clamp(1.9rem,6vw,2.8rem);letter-spacing:.05em}
+.rx .lcd .fq small{font-size:.4em;margin-left:6px}
+.rx .lcd .sig{display:flex;gap:3px;align-items:flex-end;height:26px}
+.rx .lcd .sig i{width:6px;background:#ff3b2a;opacity:.18;box-shadow:0 0 4px #ff3b2a}
+.rx .lcd .sig i.on{opacity:1}
+.rx .lcd .st{font-size:.95rem;min-height:1.4em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rx .lcd canvas{display:block;width:100%;height:46px;margin-top:6px}
+.rx .dial{position:relative;display:flex;gap:16px;align-items:center;margin-top:16px}
+.rx .scale{position:relative;flex:1;height:64px;border-radius:6px;background:linear-gradient(#e9e0cf,#d4c8b2);box-shadow:inset 0 2px 6px rgba(0,0,0,.5);cursor:ew-resize;touch-action:none;overflow:hidden}
+.rx .scale .rtk{position:absolute;bottom:0;width:1px;background:#3a2f2a}
+.rx .scale .rnm{position:absolute;top:6px;transform:translateX(-50%);font-family:var(--mono);font-size:.62rem;color:#3a2f2a}
+.rx .scale .rch{position:absolute;top:22px;transform:translateX(-50%);font-family:var(--sans-jp);font-size:.6rem;font-weight:700;color:#7a1420;white-space:nowrap}
+.rx .scale .rch::before{content:"";display:block;width:6px;height:6px;border-radius:50%;background:#7a1420;margin:0 auto 2px}
+.rx .needle{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:#d1121f;box-shadow:0 0 6px rgba(209,18,31,.8);pointer-events:none}
+.rx .knob{flex:none;width:76px;height:76px;border-radius:50%;cursor:grab;touch-action:none;border:none;padding:0;
+  background:repeating-conic-gradient(#3b3536 0 6deg,#1d191a 6deg 12deg);box-shadow:0 6px 12px rgba(0,0,0,.7),inset 0 0 0 7px #2c2627}
+.rx .knob i{position:absolute;left:50%;top:6px;width:4px;height:16px;margin-left:-2px;border-radius:2px;background:#d1121f;box-shadow:0 0 5px #d1121f}
+.rx .knob{position:relative}
+.rx .btns{display:flex;justify-content:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.rx .btns button{background:#1d191a;color:#c6bfc0;border:1px solid #3b3536;border-radius:4px;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;padding:6px 12px;cursor:pointer}
+.rx .btns button.on{color:#ff3b2a;border-color:#7a1420;text-shadow:0 0 6px rgba(255,59,42,.7)}
+.rx .out{margin-top:16px;border-radius:12px;overflow:hidden;min-height:152px;background:#000;position:relative}
+.rx .out iframe{display:block;width:100%;height:152px;border:0}
+.rx .out .fake{display:grid;place-items:center;align-content:center;gap:8px;height:152px;font-family:var(--mono);font-size:.8rem;color:#888;text-align:center;padding:10px;background:repeating-linear-gradient(45deg,#0d0b0b 0 10px,#121010 10px 20px)}
+.rx .out .fake a{color:#1ed760;font-weight:700}
+.rx .out.off::after{content:"NO SIGNAL";position:absolute;inset:0;display:grid;place-items:center;background:#000;color:#555;font-family:var(--mono);letter-spacing:.4em}
+.rx-sec .note{text-align:center;margin-top:16px;font-size:.78rem;color:#776f70}
+
+
+/* ===== footer案：CGWORLD風の形 × 神椿風の色（黒とオレンジ、光る枠） ===== */
+footer.fb{--o:#ff3c00;--pk:#e8336d;position:relative;overflow:hidden;background:#050303;color:#eee;border-top:none;padding-block:0 110px;font-size:.8rem}
+footer.fb::before{content:"";position:absolute;left:50%;bottom:-40%;width:140%;aspect-ratio:2;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(255,60,0,.2),transparent 60%);pointer-events:none}
+footer.fb .grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,60,0,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,60,0,.08) 1px,transparent 1px);background-size:120px 120px;pointer-events:none}
+footer.fb .ticker{position:relative;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));background:var(--o);color:#000;font-weight:700}
+footer.fb .ticker+.ticker{background:linear-gradient(90deg,#1a0a06,var(--o) 60%,var(--pk));color:#fff}
+footer.fb .wrap{position:relative;max-width:none;display:block;padding-top:50px}
+footer.fb .slashes{font-family:var(--mono);color:var(--o);letter-spacing:-.1em;font-size:.8rem;opacity:.7}
+footer.fb .wins{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:26px;margin-top:20px;max-width:1100px}
+footer.fb .cw{background:#0b0605;border:1.5px solid var(--o);box-shadow:0 0 22px rgba(255,60,0,.45),inset 0 0 14px rgba(255,60,0,.15);align-self:start}
+footer.fb .cw{align-self:stretch}
+footer.fb .cw .lbl{display:flex;justify-content:space-between;background:var(--o);color:#000;font-weight:700;font-family:var(--mono);font-size:.72rem;padding:2px 8px}
+footer.fb .cw .bd{padding:14px 16px}
+footer.fb p{margin:0 0 10px;line-height:1.8;color:#d8ccc6;font-size:13px}
+footer.fb p:last-child{margin-bottom:0}
+footer.fb .en{font-family:var(--serif-en);font-style:italic;color:#a8968e;font-size:14px}
+footer.fb a{color:var(--o);text-decoration:underline}
+footer.fb .cw ul{list-style:none;margin:0;padding:0;font-family:var(--mono)}
+footer.fb .cw li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(255,60,0,.4);padding:5px 0;color:#eee}
+footer.fb .cw li:last-child{border:none}
+footer.fb .cw li span{color:#a8968e}
+footer.fb .flogo{display:block;width:140px;height:auto;margin-bottom:12px;filter:drop-shadow(0 0 8px rgba(255,60,0,.6))}
+footer.fb .copy{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:60px;padding-top:10px;border-top:1.5px solid var(--o);font-family:var(--mono);font-size:.72rem;color:#a8968e}
+footer.fb .fhead{display:flex;align-items:center;justify-content:space-between;gap:16px}
+footer.fb .fhead .slashes{flex:1;min-width:0;overflow:hidden}
+footer.fb .fbadge{position:static;flex:none;width:110px;height:110px;margin-bottom:-10px}
+footer.fb .cred{display:grid;justify-items:center;text-align:center;padding:22px 18px 20px}
+footer.fb .cred .flogo{margin:0 0 18px}
+footer.fb .cred dl{margin:0;width:100%;display:grid;gap:4px}
+footer.fb .cred dt{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--o)}
+footer.fb .cred dd{margin:0 0 12px;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:15px;color:#fff}
+footer.fb .cred .sns{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:4px}
+footer.fb .cred .sns a{text-decoration:none;color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:4px 12px;border:1px solid var(--o);box-shadow:0 0 8px rgba(255,60,0,.35);transition:background .2s}
+footer.fb .cred .sns a:hover{background:var(--o);color:#000}
+footer.fb .badge-rot text{fill:var(--o)}
+@media (max-width:700px){footer.fb .fbadge{width:84px;height:84px}}
+
+
+/* ===== Links案2：押収品タグ（戦車椅子のテープ × TOGETHERのネガ反転） ===== */
+.lk2{position:relative;overflow:hidden;background:#0d0b0a;color:#111;padding-block:110px 90px}
+.lk2 .ktape{position:absolute;left:-5%;width:110%;height:34px;display:flex;align-items:center;overflow:hidden;white-space:nowrap;font-family:var(--mono);font-weight:700;font-size:.85rem;letter-spacing:.2em;color:#111;
+  background:repeating-linear-gradient(-45deg,#f2c400 0 22px,#f2c400 22px 44px);box-shadow:0 4px 10px rgba(0,0,0,.6);z-index:3}
+.lk2 .ktape.t1{top:34px;transform:rotate(-2.5deg)}
+.lk2 .ktape.t2{bottom:30px;transform:rotate(1.8deg)}
+.lk2 .ktape span{display:inline-block;animation:tick 120s linear infinite}
+.lk2 h2{position:relative;margin:0 0 40px;text-align:center;color:#e9dfd2;font-family:"Cinzel",serif;font-weight:400;font-size:clamp(2rem,6vw,3.4rem);letter-spacing:.12em}
+.lk2 .sub{text-align:center;color:#8a7f78;font-family:"Shippori Mincho B1",var(--serif-jp);letter-spacing:.3em;margin:0 0 40px}
+.lk2 .tags{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:26px 20px;max-width:1100px;margin:0 auto}
+.lk2 .tag{--n:1;--r:0deg;position:relative;display:block;padding:18px 16px 14px 34px;color:#1a1410;background:#d9c7a3;
+  clip-path:polygon(18px 0,100% 0,100% 100%,18px 100%,0 50%);transform:rotate(var(--r));transition:transform .3s;
+  filter:invert(var(--n)) contrast(calc(1 + var(--n) * .2));box-shadow:none}
+.lk2 .tag::before{content:"";position:absolute;left:12px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:#0d0b0a;box-shadow:0 0 0 2px #b8a37c}
+.lk2 .tag::after{content:"";position:absolute;inset:6px 6px 6px 26px;border:1px dashed rgba(60,40,20,.35);pointer-events:none}
+.lk2 .tag:hover,.lk2 .tag:focus-visible{transform:rotate(0deg) translateY(-4px)}
+.lk2 .tag .no{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;color:#7a1420}
+.lk2 .tag b{display:block;margin-top:6px;font-family:"Shippori Mincho B1",var(--serif-jp);font-weight:800;font-size:1rem;line-height:1.35}
+.lk2 .tag small{display:block;font-size:.68rem;color:#6b5b48;margin-top:2px}
+.lk2 .tag .st{position:absolute;right:10px;bottom:8px;font-family:var(--mono);font-size:.6rem;color:#7a1420;border:1.5px solid #7a1420;padding:0 5px;transform:rotate(-8deg);opacity:.8}
+
+
+/* ===== 怪文書だけの真っ暗なセクション ===== */
+.rsec{position:relative;height:240vh;background:#000}
+.rsec .pin{position:sticky;top:0;height:100vh;display:grid;place-items:center;overflow:hidden}
+.rsec .pin::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 50%,transparent 30%,rgba(0,0,0,.85) 100%)}
+.rsec .ransom{position:relative;left:auto;top:auto;right:auto;width:auto;max-width:92vw;align-items:center;font-size:clamp(1.4rem,4.4vw,3.4rem);padding-right:var(--rail,0px);animation:rbreath 7s ease-in-out infinite}
+.rsec .ransom .ln{justify-content:center}
+@keyframes rbreath{0%,100%{opacity:1;filter:none}46%{opacity:1}48%{opacity:.35;filter:blur(1px)}50%{opacity:1}74%{opacity:.85}}
+@media (max-width:700px){.rsec .ransom{font-size:clamp(1.3rem,6.6vw,2rem)}}
+@media (prefers-reduced-motion:reduce){.rsec .ransom{animation:none}}
+
+
 /* 動き */
 @media (prefers-reduced-motion:no-preference){
   .rv{transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.1,1);transition-delay:var(--d,0s)}
@@ -391,8 +682,6 @@ body.in-intro::after{opacity:0}
   #lightsout.on .tube,#lightsout.on .cone,#lightsout.on img{animation:none}
 }
 </style>
-</head>
-<body>
 
 <!-- オープニング -->
 <div id="opening" aria-label="オープニング">
@@ -402,11 +691,10 @@ body.in-intro::after{opacity:0}
 
 <a class="logo" href="#top" aria-label="姫野Projects トップへ"><img src="logo.webp" alt="姫野Projects"></a>
 <nav class="rail" aria-label="ページ内リンク">
-  <a href="#message">Message</a>
   <a href="#story">Story</a>
   <a href="#trace">Trace</a>
   <a href="#profile">Profile</a>
-  <a href="#works">Works</a>
+  <a href="#works-d">Works</a>
   <a href="#links">Links</a>
 </nav>
 <div class="theme"><small>THEME</small>Unknown Maniac rings the Death knell.</div>
@@ -429,7 +717,10 @@ body.in-intro::after{opacity:0}
             <span class="more"></span><span class="more"></span><span class="more"></span><span class="more"></span><span class="more"></span><span class="more"></span><span class="more"></span><span class="more"></span>
           </article>
           <div class="col photo">
-            <img class="passport" src="passport-sm.jpg" alt="血のついたパスポート">
+            <div class="booklet">
+              <div class="upper" aria-hidden="true"><span class="wm"></span><div class="kanji"><span>日</span><span>本</span><span>国</span><span>旅</span><span>券</span></div><span class="kiku"></span><div class="en"><b>JAPAN</b><small>PASSPORT</small></div></div>
+              <img class="passport" src="passport-sm.jpg" alt="血のついたパスポート">
+            </div>
             <div class="caption">A passport recovered near the scene. Investigators have not disclosed where it was found.</div>
           </div>
           <article class="col">
@@ -443,73 +734,67 @@ body.in-intro::after{opacity:0}
       </div>
       <div class="hd" aria-hidden="true"><img src="passport-hd.jpg" alt=""></div>
       <div class="fade" aria-hidden="true"></div>
+
       <div class="scroll-hint"><span class="arrow">↓</span>TAP ／ SCROLL</div>
+    </div>
+  </section>
+
+  <!-- 怪文書だけの真っ暗なセクション（消すときはこの section を丸ごと消す） -->
+  <section class="rsec" id="ransom" data-bg="#000" aria-label="怪文書">
+    <div class="pin">
+      <p class="ransom" aria-label="僕の名前は姫野。3日前に日本人になったばかりだ。"><span class="ln" aria-hidden="true">僕の名前は姫野。</span><span class="ln" aria-hidden="true">3日前に日本人に</span><span class="ln" aria-hidden="true">なったばかりだ。</span></p>
     </div>
   </section>
 
   <!-- 2. トップ -->
   <section class="hero" data-bg="#000" aria-label="トップ">
-    <p class="ransom" aria-label="僕の名前は姫野。3日前に日本人になったばかりだ。"><span class="ln" aria-hidden="true">僕の名前は姫野。</span><span class="ln" aria-hidden="true">3日前に日本人に</span><span class="ln" aria-hidden="true">なったばかりだ。</span></p>
     <div class="vid"><video id="hero-video" src="himeno-move.webm" poster="himeno-move-poster.png" muted loop playsinline preload="auto" aria-label="手袋をはめ直す姫野"></video></div>
     <div class="glitch" aria-hidden="true"><img src="vhs-face.webp" alt=""></div>
   </section>
 
-  <!-- 3. MESSAGE -->
-  <section class="msg torn" id="message" data-bg="#06100d">
-    <div class="bg" aria-hidden="true"></div>
-    <div class="body in">
-      <div class="label rv">[MESSAGE]</div>
-      <p class="lead rv">『僕の名前は姫野。3日前、日本人になったばかりだ。』</p>
-      <p class="rv" style="--d:.1s">退屈な現代社会・日本に、サイコパス「姫野」が潜んでいます。<br>彼は、平穏な日常の裏にいる正体不明のヴィラン。<br>彼がどのようにして日本に溶け込み、周囲の人々に影響を与えていくのか。</p>
-      <p class="en rv" style="--d:.2s">A psychopathic villain named Himeno has descended upon the dull modern society of Japan.</p>
-    </div>
-  </section>
 
   <!-- 4. STORY -->
   <section class="story" id="story" data-bg="#0e0b0c" aria-label="押収された手記">
     <div class="pin">
       <div class="ghost" aria-hidden="true">独白</div>
-      <div class="hint">[STORY] ← TAP ／ SCROLL</div>
+      <div class="hint">[STORY] TAP ／ SCROLL →</div>
       <div class="book" aria-live="polite"><div class="half r"></div><div class="half l"></div></div>
       <div class="book-nav" id="booknav"></div>
       <div class="track">
-        <article class="page cover"><h3>とあるシリアルキラーの独白</h3><span class="stamp">EVIDENCE</span><span class="no">01</span></article>
+        <article class="page cover"><h3>とある<br>シリアルキラーの<br>独白</h3><span class="stamp">EVIDENCE</span><span class="no">01</span></article>
         <article class="page"><span class="tag">p.2</span><div class="body">
-          <p>日本に来て二日目。</p>
+          <p>日本に来て2日目。</p>
           <p>僕の名前は姫野。</p>
-          <p>三日前に日本人になったばかりだ。</p>
+          <p>3日前に日本人になったばかりだ。</p>
           <p>それまでの僕は日本人でも、ましてや<span class="rd">ＸＸＸＸＸ</span>でもない。</p>
           <span class="tear" aria-label="欠損"></span>
-        </div><span class="no">02</span></article>
-        <article class="page"><span class="tag">p.3</span><div class="body">
-          <p>その客に僕は「常識とは十八歳までに身につけた偏見だよ」と答えた。</p>
+          <p>その客に僕は「常識とは18歳までに身につけた偏見だよ」と答えた。</p>
           <span class="tear" aria-label="欠損"></span>
           <p>まず、僕は何事も『手順』というのを大切にするタイプなんだけど、人にやり返すのすら僕なりの『手順』というのがある。</p>
           <p><span class="rd">ＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸ</span></p>
-        </div><span class="no">03</span></article>
-        <article class="page"><span class="tag">p.4</span><div class="body">
-          <p>「僕の手順通りにやったのに<span class="rd peek" tabindex="0">五分十九秒</span>も持ったんだ、長かったね…おめでとう」</p>
+        </div><span class="no">02</span></article>
+        <article class="page"><span class="tag">p.3</span><div class="body">
+          <p>「僕の手順通りにやったのに<span class="rd peek" tabindex="0">5分19秒</span>も持ったんだ、長かったね…おめでとう」</p>
           <span class="tear" aria-label="欠損"></span>
           <p>荷物の中にパスポートが入っていたので名前を見てみると、姓名が「HIMENO」だった。</p>
-        </div><span class="no">04</span></article>
-        <article class="page pic"><img src="phone-passport.webp" alt="スマホで撮られた、血のついた手とパスポート"><span class="no" style="color:#ccc">05</span></article>
-        <article class="page"><span class="tag">p.6</span><div class="body">
+        </div><span class="no">03</span></article>
+        <article class="page pic"><img src="phone-passport.webp" alt="スマホで撮られた、血のついた手とパスポート"><span class="no" style="color:#ccc">04</span></article>
+        <article class="page"><span class="tag">p.5</span><div class="body">
           <p>姫って漢字は意味がPrincessなのってすごいね。</p>
           <span class="tear" aria-label="欠損"></span>
           <p>「許してくれるなら全部をお前に渡すって言ってたけど…なら、本当に<span class="rd peek" tabindex="0">本名・国籍・素性</span>、全部を僕にくれないかな」</p>
-        </div><span class="no">06</span></article>
-        <article class="page"><span class="tag">p.7</span><div class="body">
+          <span class="tear" aria-label="欠損"></span>
           <p>あの時、僕が手を下した「本物の姫野さん」のパスポートの下の名前には黒線を引いた。</p>
           <span class="tear" aria-label="欠損"></span>
           <p>僕の名前は姫野、</p>
           <p>この国でプリンセスなんだ。</p>
           <p>面白いと思わない？</p>
-        </div><span class="no">07</span></article>
-        <article class="page end"><span class="tag">p.8</span><div class="body">
+        </div><span class="no">05</span></article>
+        <article class="page end"><span class="tag">p.6</span><div class="body">
           <p><span class="rd">ＸＸＸＸ</span>警察署　押収資料</p>
           <p>続きはボイスドラマで。</p>
-          <p><a href="#works" data-open="dokuhaku">「シリアルキラーの独白」を再生する</a></p>
-        </div><span class="no">08</span></article>
+          <p><a href="#" data-wa="1">「シリアルキラーの独白」を再生する</a></p>
+        </div><span class="no">06</span></article>
       </div>
     </div>
   </section>
@@ -537,19 +822,6 @@ body.in-intro::after{opacity:0}
     </div>
   </section>
 
-  <!-- 5. カラスと羽根 -->
-  <section class="layers" data-bg="#0b0a0b" aria-label="カラスと羽根">
-    <div class="pin">
-      <div class="haze" aria-hidden="true"></div>
-      <div class="stage">
-        <img class="feathers back" src="p-feathers.webp" alt="" data-fx="-40" data-fy="0.55" data-s="0.8">
-        <img class="crow" src="p-crow.webp" alt="" data-fx="-160" data-fy="-0.25" data-s="1.1">
-        <img class="him" src="p-figure.webp" alt="姫野とカラス" data-fx="0" data-fy="-0.04" data-s="1">
-        <img class="feathers" src="p-feathers.webp" alt="" data-fx="60" data-fy="0.9" data-s="1.35">
-      </div>
-      <p class="knell"><b>弔鐘</b><span>死を予告する鐘</span><i>Unknown Maniac rings the Death knell.</i></p>
-    </div>
-  </section>
 
   <!-- 6. PROFILE -->
   <section class="prof in" id="profile" data-bg="#0b0a0b">
@@ -577,6 +849,17 @@ body.in-intro::after{opacity:0}
     <div class="figure rv" style="--d:.15s"><img src="standee.webp" alt="姫野 Knell Lungs 全身"></div>
   </section>
 
+  <!-- 作品一覧 案D：神椿風 -->
+  <section class="wd" id="works-d" data-bg="#050303" aria-label="作品一覧 案D">
+    <span class="variant-tag" style="background:#ff3c00;color:#000">WORKS見出し（神椿風）</span>
+    <div class="crest" aria-hidden="true"></div>
+    <div class="in">
+      <h2 class="ttl">WORKS</h2>
+      <p class="sub">押収された記録</p>
+    </div>
+  </section>
+
+
   <!-- 7. GALLERY（証拠写真） -->
   <section class="gallery torn2" id="gallery" data-bg="#050404" aria-label="ギャラリー">
     <div class="ggrid">
@@ -589,66 +872,49 @@ body.in-intro::after{opacity:0}
     </div>
   </section>
 
-  <!-- 8. WORKS -->
-  <section class="works" id="works" data-bg="#0a0909">
-    <div class="feat">
-      <div class="bg" style="background-image:url(passport-hd.jpg);background-position:30% 50%"></div>
-      <div class="txt in">
-        <span class="pill">姫野Projects オリジナル</span>
-        <h2 style="font-family:var(--serif-jp);font-weight:900;font-size:clamp(2rem,5.4vw,3.8rem);line-height:1.2">シリアルキラーの独白</h2>
-        <div class="meta"><span>ボイスドラマ</span><span class="age">R15</span><span>YouTube ／ Spotify</span></div>
-        <p>日本に来て2日目。僕の名前は姫野。3日前に日本人になったばかりだ。</p>
-        <div class="btns">
-          <a class="btn play" href="https://youtu.be/Tl4zfRacQKc" target="_blank" rel="noopener">▶ 再生</a>
-          <button type="button" class="btn sub" id="mylist" aria-pressed="false">＋ マイリスト</button>
-          <button type="button" class="btn sub" data-open-now="dokuhaku">ⓘ 詳細</button>
-        </div>
-      </div>
+
+  <!-- 作品一覧 案A：戦車椅子風 -->
+  <section class="wa in" id="works-a" data-bg="#0d0b0c" aria-label="作品一覧 案A">
+    <span class="variant-tag">案A：戦車椅子風</span>
+    <div class="tapes" aria-hidden="true">
+      <div class="tape t1"><span>KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629　KEEP OUT ／ 立入禁止 ／ CASE FILE 0629</span></div>
+      <div class="tape t2"><span>POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中　POLICE LINE ／ DO NOT CROSS ／ 捜査中</span></div>
+      <div class="tape t3"><span>UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO　UNIDENTIFIED ／ 身元不明 ／ HIMENO</span></div>
     </div>
+    <h2>押収された記録<small>EVIDENCE ／ RECORDED MEDIA</small></h2>
+    <div class="wins" id="waWins"></div>
+  </section>
 
+
+  <!-- 作品一覧 案C：TOGETHER風 -->
+  <section class="wc" id="works-c" data-bg="#140d0a" aria-label="作品一覧 案C">
+    <span class="variant-tag" style="background:#7a1420;color:#fff">案C：TOGETHER風</span>
     <div class="in">
-      <div class="chips" role="group" aria-label="ジャンルで絞り込む">
-        <button type="button" class="chip" data-g="all" aria-pressed="true">すべて</button>
-        <button type="button" class="chip" data-g="bd" aria-pressed="false">ボイスドラマ</button>
-        <button type="button" class="chip" data-g="mv" aria-pressed="false">MV</button>
-        <button type="button" class="chip" data-g="short" aria-pressed="false">ショート</button>
-        <button type="button" class="chip" data-g="mmd" aria-pressed="false">MMD</button>
-        <button type="button" class="chip" data-g="game" aria-pressed="false">ゲーム</button>
-      </div>
+      <div class="lead"><img class="neg" src="g-bust.webp" alt=""><div class="cap"><h2 class="mv">MOVIES</h2><div class="mvsub">押収された記録</div></div></div>
+      <div class="grid" id="wcGrid"></div>
+    </div>
+  </section>
 
-      <div class="shelf">
-        <h3>姫野Projects オリジナル</h3>
-        <div class="cards">
-          <button type="button" class="card" data-id="bridge" data-g="game"><span class="th"><img src="t-bridge1.webp" alt=""><span class="badge pill">COMING SOON</span></span><span class="cap">The Bridge<small>異界クライムサスペンスゲーム ・ PC</small></span></button>
-          <button type="button" class="card" data-id="dokuhaku" data-g="bd"><span class="th"><img src="t-dokuhaku.webp" alt=""><span class="badge pill">BD</span></span><span class="cap">シリアルキラーの独白<small>ボイスドラマ</small></span></button>
-          <button type="button" class="card" data-id="eight" data-g="bd"><span class="th"><img src="umbrella.webp" alt="" style="object-position:50% 20%;background:#151012"><span class="t">平均8年って、<br>僕の何の時間だと思う？</span><span class="badge pill">BD</span></span><span class="cap">平均8年って、僕の何の時間だと思う？<small>ボイス付き動画</small></span></button>
-          <button type="button" class="card" data-id="shinigami" data-g="bd"><span class="th"><img src="g-blood.webp" alt="" style="object-position:50% 20%"><span class="t">死神</span><span class="badge pill">BD</span></span><span class="cap">死神<small>ボイスドラマ ・ Spotify</small></span></button>
-          <button type="button" class="card" data-id="painkiller" data-g="mv"><span class="th"><img src="t-painkiller.webp" alt=""><span class="badge pill">MV</span></span><span class="cap">ペインキラー<small>オリジナルソング</small></span></button>
-          <button type="button" class="card tall" data-id="nise" data-g="short"><span class="th"><img src="vhs-face.webp" alt=""><span class="t">偽日本人、<br>現る。</span></span><span class="cap">偽日本人、現る。<small>ショート</small></span></button>
+  <!-- Spotify：盗聴受信機 -->
+  <section class="rx-sec" id="radio" data-bg="#0b0809" aria-label="Spotify">
+    <span class="variant-tag" style="background:#1ed760;color:#000">Spotify案：盗聴受信機</span>
+    <div class="in">
+      <div class="head"><p>INTERCEPTED AUDIO</p><h2>傍受された音声</h2></div>
+      <div class="rx" id="rx">
+        <div class="brand"><b>KL-0629</b><span>RECEIVER</span></div>
+        <div class="lcd">
+          <div class="row"><span class="fq" id="rxFq">00.0<small>MHz</small></span><span class="sig" id="rxSig"><i style="height:20%"></i><i style="height:35%"></i><i style="height:50%"></i><i style="height:65%"></i><i style="height:80%"></i><i style="height:100%"></i></span></div>
+          <div class="st" id="rxSt">― NO SIGNAL ―</div>
+          <canvas id="rxWave" width="600" height="46"></canvas>
         </div>
-      </div>
-
-      <div class="shelf">
-        <h3>MMD</h3>
-        <div class="cards">
-          <button type="button" class="card" data-id="envy" data-g="mmd"><span class="th"><img src="himeno-move-poster.png" alt="" style="background:#151012;object-fit:contain"><span class="t">エンヴィーベイビー</span><span class="badge pill">MMD</span></span><span class="cap">姫野でエンヴィーベイビー<small>MMD × VRoid Studio</small></span></button>
-          <button type="button" class="card" data-id="gishin" data-g="mmd"><span class="th"><img src="g-bust.webp" alt="" style="object-position:50% 30%"><span class="t">疑心暗鬼</span><span class="badge pill">MMD</span></span><span class="cap">姫野さんで疑心暗鬼<small>MMD × VRoid</small></span></button>
+        <div class="dial">
+          <div class="scale" id="rxScale" aria-hidden="true"><span class="needle" id="rxNeedle"></span></div>
+          <button type="button" class="knob" id="rxKnob" aria-label="周波数を合わせる"><i></i></button>
         </div>
+        <div class="btns" id="rxBtns"></div>
+        <div class="out off" id="rxOut"></div>
       </div>
-
-      <div id="detail" hidden>
-        <div class="dbg"></div>
-        <button type="button" id="dclose" aria-label="閉じる">×</button>
-        <div class="dtxt">
-          <span class="pill" id="dkind"></span>
-          <h4 id="dtitle"></h4>
-          <div class="meta" id="dmeta"></div>
-          <p id="dsyn"></p>
-          <div class="credit" id="dcredit"></div>
-          <div class="btns" id="dbtns"></div>
-        </div>
-      </div>
-      <p class="label" style="margin-top:18px">全エピソード：<a href="https://open.spotify.com/show/6alyyX3BvO82qsikdIuN0K" style="color:var(--red)">Spotify 番組</a> ／ <a href="https://www.youtube.com/@HimenoKnellLungs" style="color:var(--red)">YouTube チャンネル</a></p>
+      <p class="note">ダイヤルを回して（ドラッグ）、周波数を合わせてください。</p>
     </div>
   </section>
 
@@ -682,13 +948,40 @@ body.in-intro::after{opacity:0}
     </div>
   </section>
 
-  <footer class="in" data-bg="#0b0a0b">
+  <!-- Links案2：押収品タグ -->
+  <section class="lk2" id="links-2" data-bg="#0d0b0a" aria-label="Links 案2">
+    <span class="variant-tag" style="background:#f2c400;color:#000;z-index:5;top:auto;bottom:80px">Links案2：押収品タグ</span>
+    <div class="ktape t1" aria-hidden="true"><span>KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ KEEP OUT ― 立入禁止 ／ </span></div>
+    <div class="ktape t2" aria-hidden="true"><span>EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ EVIDENCE ― CASE 0629 ／ </span></div>
+    <div class="in">
+      <h2>LINKS</h2>
+      <div class="tags" id="lk2Tags"></div>
+    </div>
+  </section>
+
+  <footer class="in fb" data-bg="#050303">
+    <span class="variant-tag" style="background:#111;color:#fff;top:auto;bottom:14px">footer案：CGWORLD×神椿</span>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="ticker" aria-hidden="true"><span>END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_END_OF_FILE_</span></div>
+    <div class="ticker rev" aria-hidden="true"><span>CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_CASE_0629_CLOSED_</span></div>
     <div class="wrap">
-      <img src="logo.webp" alt="姫野Projects">
-      <p>※これはフィクションです。名前、登場人物、企業、場所、出来事、事件は作者の想像力の産物であるか、架空のものです。実在の人物との類似性、生きているのか死んでいるのか、重なった実際の出来事はまったくの偶然です。</p>
-      <p class="en">This is a work of fiction. Names, characters, businesses, places, events and incidents are either the products of the author’s imagination or used in a fictitious manner. Any resemblance to actual persons, living or dead, or actual events is purely coincidental.</p>
-      <p>Character &amp; Illustration：Markka（<a href="https://x.com/daisdaorie">X</a> ／ <a href="https://www.instagram.com/daisdaorie/">Instagram</a> ／ <a href="https://www.pixiv.net/users/67714484">pixiv</a> ／ <a href="https://www.artstation.com/markka">ArtStation</a>）<br>LOGO：れお 様</p>
-      <p>© 2024 Himeno Project. All rights reserved.</p>
+      <div class="fhead"><div class="slashes" aria-hidden="true">////////////////////////////////</div>
+  <svg class="badge-rot fbadge" viewBox="0 0 150 150" aria-hidden="true"><defs><path id="circ2" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs><text><textPath href="#circ2">THIS IS A WORK OF FICTION ・ </textPath></text></svg></div>
+      <div class="wins">
+        <div class="cw"><div class="lbl"><span>(disclaimer)</span><span>×</span></div><div class="bd">
+          <p>※これはフィクションです。名前、登場人物、企業、場所、出来事、事件は作者の想像力の産物であるか、架空のものです。実在の人物との類似性、生きているのか死んでいるのか、重なった実際の出来事はまったくの偶然です。</p>
+          <p class="en">This is a work of fiction. Names, characters, businesses, places, events and incidents are either the products of the author’s imagination or used in a fictitious manner. Any resemblance to actual persons, living or dead, or actual events is purely coincidental.</p>
+        </div></div>
+        <div class="cw"><div class="lbl"><span>(credits)</span><span>×</span></div><div class="bd cred">
+          <img class="flogo" src="logo.webp" alt="姫野Projects">
+          <dl>
+            <dt>CHARACTER &amp; ILLUSTRATION</dt><dd>Markka</dd>
+            <dt>LOGO</dt><dd>れお 様</dd>
+          </dl>
+          <div class="sns"><a href="https://x.com/daisdaorie">X</a><a href="https://www.instagram.com/daisdaorie/">Instagram</a><a href="https://www.pixiv.net/users/67714484">pixiv</a><a href="https://www.artstation.com/markka">ArtStation</a></div>
+        </div></div>
+      </div>
+      <div class="copy"><span>© 2024 Himeno Project. All rights reserved.</span><span>(#.0629) ― CASE CLOSED?</span></div>
     </div>
   </footer>
 </main>
@@ -696,6 +989,7 @@ body.in-intro::after{opacity:0}
 <!-- 最後の仕掛け -->
 <div id="lightbox" hidden role="dialog" aria-label="写真を拡大"><img alt=""><span class="tag"></span></div>
 <button type="button" id="totop" aria-label="トップへ戻る"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="3" seed="6"/><feDisplacementMap in="SourceGraphic" scale="16"/></filter></defs><path filter="url(#rough)" fill="#b3121f" d="M50 6c22 0 42 15 43 40 1 24-17 45-42 47C25 95 6 76 7 50 8 24 27 6 50 6z"/></svg><span>TOP<br>↑</span></button>
+<div id="waModal" hidden role="dialog" aria-label="作品を再生"></div>
 <div id="lightsout" aria-hidden="true">
   <div class="cone"></div>
   <div class="tube"></div>
@@ -769,6 +1063,7 @@ body.in-intro::after{opacity:0}
     hd.style.opacity = Math.min(1, Math.max(0, (s - 1.3) / .8));
     var d = Math.min(1, Math.max(0, (e - .3) / .65));
     fade.style.opacity = d * d * (3 - 2 * d);
+
     document.body.classList.toggle('in-intro', p < 1);
   }
   if(photo.complete) measure(); else photo.addEventListener('load', function(){ measure(); zoom(); });
@@ -781,7 +1076,7 @@ body.in-intro::after{opacity:0}
   var FONTS = ['"Chokokutai"','"Slackside One"','"Yomogi"','"Zen Kurenaido"','"Kaisei Tokumin"','"Yuji Mai"','"Yuji Boku"','"Zen Antique"','"Shippori Antique B1"','"DotGothic16"','"Zen Old Mincho"','"Yuji Syuku"','"New Tegomin"','"Shippori Mincho B1"'];
   var SKINS = ['', '', '', 'n', 'n', 'k', 'p', 'r'];
   var chars = [];
-  hero.querySelectorAll('.ransom .ln').forEach(function(ln, li){
+  document.querySelectorAll('.ransom .ln').forEach(function(ln, li){
     var s = ln.textContent; ln.textContent = '';
     Array.from(s).forEach(function(c){ var sp = document.createElement('span'); sp.className = 'ch'; sp.textContent = c; sp.dataset.line = li; ln.appendChild(sp); chars.push(sp); });
   });
@@ -830,12 +1125,13 @@ body.in-intro::after{opacity:0}
         heroOn = e.isIntersecting;
         if(heroOn){
           if(vid.paused){ vid.currentTime = 0; var p1 = vid.play(); if(p1 && p1.catch) p1.catch(function(){}); }
-          startRansom();
-        } else { vid.pause(); clearTimeout(gtimer); gtimer = null; stopRansom(); }
+        } else { vid.pause(); clearTimeout(gtimer); gtimer = null; }
       });
     },{threshold:.35}).observe(hero);
   }
   if(still){ vid.removeAttribute('loop'); }
+  var rsec = document.getElementById('ransom') || hero;
+  if(hasIO){ new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) startRansom(); else stopRansom(); }); },{threshold:.15}).observe(rsec); } else startRansom();
 
   /* ---------- 4. STORY：縦スクロールを横送りに ---------- */
   var story = document.querySelector('.story'), track = story.querySelector('.track'), ghost = story.querySelector('.ghost');
@@ -849,11 +1145,19 @@ body.in-intro::after{opacity:0}
   function buildViews(){
     single = window.matchMedia('(max-width:700px)').matches; views = [];
     if(single){ for(var i = 0; i < srcPages.length; i++) views.push([i]); }
-    else { for(var j = 0; j < srcPages.length; j += 2) views.push([j, j + 1]); } // [右, 左]
+    else { for(var j = 0; j < srcPages.length; j += 2) views.push([j, j + 1]); } // [左, 右]
+  }
+  // ページに文章が収まらないときは、収まるまで文字を少しずつ小さくする
+  function fitPage(pg){
+    var b = pg && pg.querySelector && pg.querySelector('.body'); if(!b) return;
+    b.style.fontSize = ''; var fs = parseFloat(getComputedStyle(b).fontSize), n = 0;
+    var minFs = single ? 13 : 12;
+    while((b.scrollWidth > b.clientWidth + 1 || b.scrollHeight > b.clientHeight + 1) && fs > minFs && n++ < 30){ fs *= .95; b.style.fontSize = fs + 'px'; }
   }
   function paint(v){
     var pair = views[v]; halfR.innerHTML = ''; halfL.innerHTML = '';
-    halfR.appendChild(clonePage(pair[0])); if(!single) halfL.appendChild(clonePage(pair[1]));
+    if(single){ halfR.appendChild(clonePage(pair[0])); fitPage(halfR.firstChild); }
+    else { halfL.appendChild(clonePage(pair[0])); halfR.appendChild(clonePage(pair[1])); fitPage(halfL.firstChild); fitPage(halfR.firstChild); }
     bnav.textContent = (v + 1) + ' / ' + views.length;
   }
   function turnTo(v){
@@ -862,26 +1166,33 @@ body.in-intro::after{opacity:0}
     var from = view; view = v;
     if(from < 0 || still){ paint(v); return; }
     var fwd = v > from, a = views[from], b = views[v];
-    var leaf = document.createElement('div'); leaf.className = 'leaf ' + (single || fwd ? 'fwd' : 'bwd');
+    var leaf = document.createElement('div');
     var front = document.createElement('div'); front.className = 'face front';
     var back = document.createElement('div'); back.className = 'face back';
+    var endRot;
     if(single){
-      // 1ページずつ：今のページが右の背を軸にめくれる（戻るときは逆）
+      // 1ページずつ：左の背を軸に、今のページが左へめくれる（戻るときは逆）
+      leaf.className = 'leaf toL';
       front.appendChild(clonePage(fwd ? a[0] : b[0])); back.appendChild(clonePage(null));
       halfR.innerHTML = ''; halfR.appendChild(clonePage(fwd ? b[0] : a[0]));
-      if(!fwd){ leaf.style.transform = 'rotateY(180deg)'; }
+      if(!fwd) leaf.style.transform = 'rotateY(-180deg)';
+      endRot = fwd ? 'rotateY(-180deg)' : 'rotateY(0deg)';
     } else if(fwd){
-      // 日本の本：左ページが持ち上がって右へめくれる
+      // 横書きの本：右ページが持ち上がって左へめくれる
+      leaf.className = 'leaf toL';
       front.appendChild(clonePage(a[1])); back.appendChild(clonePage(b[0]));
-      halfL.innerHTML = ''; halfL.appendChild(clonePage(b[1]));
+      halfR.innerHTML = ''; halfR.appendChild(clonePage(b[1]));
+      endRot = 'rotateY(-180deg)';
     } else {
+      leaf.className = 'leaf toR';
       front.appendChild(clonePage(a[0])); back.appendChild(clonePage(b[1]));
-      halfR.innerHTML = ''; halfR.appendChild(clonePage(b[0]));
+      halfL.innerHTML = ''; halfL.appendChild(clonePage(b[0]));
+      endRot = 'rotateY(180deg)';
     }
     leaf.appendChild(front); leaf.appendChild(back); book.appendChild(leaf);
+    [front.firstChild, back.firstChild, halfR.firstChild, halfL.firstChild].forEach(fitPage);
     flipping = true; void leaf.offsetWidth;
-    leaf.classList.add('go');
-    leaf.style.transform = single ? (fwd ? 'rotateY(180deg)' : 'rotateY(0deg)') : (fwd ? 'rotateY(180deg)' : 'rotateY(-180deg)');
+    leaf.classList.add('go'); leaf.style.transform = endRot;
     setTimeout(function(){
       paint(v); leaf.remove(); flipping = false;
       if(queued != null && queued !== view){ var q = queued; queued = null; turnTo(q); } else queued = null;
@@ -918,88 +1229,19 @@ body.in-intro::after{opacity:0}
     el.addEventListener('keydown', function(ev){ if(ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); show(); } });
   });
 
-  /* ---------- 5. カラスと羽根：層ごとに違う速さ ---------- */
-  var layers = document.querySelector('.layers'), limgs = layers.querySelectorAll('.stage img');
-  function moveLayers(){
-    if(still) return;
-    var r = layers.getBoundingClientRect(), p = (window.innerHeight - r.top) / (window.innerHeight + r.height); // 0→1
-    var y = (p - .5) * window.innerHeight;
-    limgs.forEach(function(img){
-      var fy = +img.dataset.fy, fx = +img.dataset.fx, sc = +img.dataset.s;
-      img.style.transform = 'translate(' + ((p - .5) * fx * 2) + 'px,' + (y * fy) + 'px) scale(' + sc + ')';
-    });
-  }
-
   /* ---------- 3. MESSAGE の背景をゆっくり ---------- */
   var msgbg = document.querySelector('.msg .bg'), msg = document.querySelector('.msg');
   function moveMsg(){
-    if(still) return;
+    if(still || !msg) return;
     var r = msg.getBoundingClientRect(), p = (window.innerHeight - r.top) / (window.innerHeight + r.height);
     msgbg.style.transform = 'scale(1.08) translateX(' + ((p - .5) * -40) + 'px)';
   }
 
-  /* ---------- 8. WORKS ---------- */
-  var W = {
-    bridge:{kind:'COMING SOON', title:'The Bridge', img:'t-bridge2.webp',
-      meta:['4/1 (WED)','異界クライムサスペンスゲーム','PC'], syn:'Teaser Trailer 公開予定。', credit:'', links:[]},
-    dokuhaku:{kind:'ボイスドラマ', title:'シリアルキラーの独白', img:'t-dokuhaku.webp',
-      meta:['姫野Projects','ボイスドラマ'], syn:'日本に来て2日目。僕の名前は姫野。3日前に日本人になったばかりだ。故郷で起きた「とある観光客」との一件と、彼が「姫野」になった経緯を、本人が語る。',
-      credit:'姫野 CV：鬼灯馨 様 ／ 編集・音響：PrefabSoundDesign 様 ／ 台本・イラスト：Markka',
-      links:[['▶ YouTubeで再生','https://youtu.be/Tl4zfRacQKc'],['Spotifyで聴く','https://open.spotify.com/episode/4SQe4npg4hS9CtULNlqHZv']]},
-    eight:{kind:'ボイス付き動画', title:'平均8年って、僕の何の時間だと思う？', img:'umbrella.webp',
-      meta:['姫野Projects','ボイス付き動画'], syn:'平均8年って聞いて、僕は「お堅い君を口説くにはそれぐらい時間が必要かも」と思った。毎朝、颯爽と制服姿で通り過ぎていく君に、僕は今日も挨拶をする。',
-      credit:'', links:[['▶ YouTubeで再生','https://youtu.be/z977UZUiti4']]},
-    shinigami:{kind:'ボイスドラマ', title:'死神', img:'g-blood.webp',
-      meta:['姫野Projects','ボイスドラマ'], syn:'疲れ果てたサラリーマンの「俺」の前に現れたのは、陽気だが、どこか焦点の合わない青年だった。',
-      credit:'', links:[['Spotifyで聴く','https://open.spotify.com/episode/1lgsDpMnkm8Mdm3FeCk5k2']]},
-    painkiller:{kind:'MV', title:'ペインキラー', img:'t-painkiller.webp',
-      meta:['姫野Projects','オリジナルソング'], syn:'深夜、誰もいない場所でブリティッシュロックを歌う女の子の前に、姫野が現れて言う。「その曲、いいね」',
-      credit:'作曲：くおん 様', links:[['▶ YouTubeで再生','https://youtu.be/_zC19Jpo8v0']]},
-    nise:{kind:'ショート', title:'偽日本人、現る。', img:'vhs-face.webp',
-      meta:['姫野Projects','YouTube Shorts'], syn:'', credit:'', links:[['▶ YouTubeで再生','https://youtube.com/shorts/sjcR98y4FzQ']]},
-    envy:{kind:'MMD', title:'姫野でエンヴィーベイビー', img:'himeno-move-poster.png',
-      meta:['MMD × VRoid Studio'], syn:'', credit:'', links:[['▶ YouTubeで再生','https://youtu.be/iuS8mN54v8c']]},
-    gishin:{kind:'MMD', title:'姫野さんで疑心暗鬼', img:'g-bust.webp',
-      meta:['MMD × VRoid','修正版'], syn:'', credit:'', links:[['▶ YouTubeで再生','https://youtu.be/ExpG6bk2YkU']]}
-  };
-  var detail = document.getElementById('detail');
-  function openWork(id){
-    var w = W[id]; if(!w) return;
-    detail.querySelector('.dbg').style.backgroundImage = 'url(' + w.img + ')';
-    document.getElementById('dkind').textContent = w.kind;
-    document.getElementById('dtitle').textContent = w.title;
-    document.getElementById('dmeta').innerHTML = w.meta.map(function(m){ return '<span>' + m + '</span>'; }).join('');
-    var syn = document.getElementById('dsyn'); syn.textContent = w.syn; syn.hidden = !w.syn;
-    var cr = document.getElementById('dcredit'); cr.textContent = w.credit; cr.hidden = !w.credit;
-    document.getElementById('dbtns').innerHTML = w.links.map(function(l, i){
-      return '<a class="btn ' + (i ? 'sub' : 'play') + '" href="' + l[1] + '" target="_blank" rel="noopener">' + l[0] + '</a>';
-    }).join('');
-    detail.hidden = false;
-    detail.scrollIntoView({behavior: still ? 'auto' : 'smooth', block:'center'});
-  }
-  document.querySelectorAll('.card').forEach(function(c){ c.addEventListener('click', function(){ openWork(c.dataset.id); }); });
-  document.querySelectorAll('[data-open-now]').forEach(function(b){ b.addEventListener('click', function(){ openWork(b.dataset.openNow); }); });
-  document.getElementById('dclose').addEventListener('click', function(){ detail.hidden = true; });
-  document.querySelectorAll('[data-open]').forEach(function(a){ a.addEventListener('click', function(){ setTimeout(function(){ openWork(a.dataset.open); }, 600); }); });
-  document.querySelectorAll('.chip').forEach(function(ch){
-    ch.addEventListener('click', function(){
-      document.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed', x === ch ? 'true' : 'false'); });
-      var g = ch.dataset.g;
-      document.querySelectorAll('.card').forEach(function(c){ c.hidden = !(g === 'all' || c.dataset.g === g); });
-      document.querySelectorAll('.shelf').forEach(function(s){ s.hidden = !s.querySelector('.card:not([hidden])'); });
-    });
-  });
-  var ml = document.getElementById('mylist');
-  try { if(localStorage.getItem('hp-mylist') === '1'){ ml.setAttribute('aria-pressed','true'); ml.textContent = '✓ マイリスト'; } } catch(e){}
-  ml.addEventListener('click', function(){
-    var on = ml.getAttribute('aria-pressed') !== 'true';
-    ml.setAttribute('aria-pressed', on ? 'true' : 'false'); ml.textContent = on ? '✓ マイリスト' : '＋ マイリスト';
-    try { localStorage.setItem('hp-mylist', on ? '1' : '0'); } catch(e){}
-  });
-
   /* ---------- 最後まで見たら、照明が落ちる ---------- */
   var lo = document.getElementById('lightsout'), armed = true, loTimer = null;
+  var LIGHTS_OUT = false; // 最後の暗転は今は止めてる（戻すときは true）
   function checkBottom(){
+    if(!LIGHTS_OUT) return;
     var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
     if(atBottom && armed && !loTimer){
       loTimer = setTimeout(function(){ lo.classList.add('on'); lo.setAttribute('aria-hidden','false'); armed = false; loTimer = null; }, 1500);
@@ -1029,7 +1271,7 @@ body.in-intro::after{opacity:0}
   window.addEventListener('touchmove', stopGlide, {passive:true});
   // 新聞：タップするとパスポートに寄って暗転し、トップまで進む
   intro.querySelector('.pin').addEventListener('click', function(){
-    glide(hero.getBoundingClientRect().top + window.scrollY, 3400);
+    glide(rsec.getBoundingClientRect().top + window.scrollY, 3400);
   });
   // 物語：タップするたびに1ページずつめくる（黒塗りやリンクを押したときは除く）
   story.querySelector('.pin').addEventListener('click', function(ev){
@@ -1105,14 +1347,17 @@ body.in-intro::after{opacity:0}
   }
   drawSnow();
   function layPrints(){ moveTrace(); }
+  // スクロールしなくても、画面に入っている間は勝手にカメラが切り替わる
+  var autoT = null;
+  function nextAuto(){ clearTimeout(autoT); autoT = setTimeout(function(){ showStage((cur + 1) % STAGES.length); nextAuto(); }, cur === 5 ? 6500 : 4500); }
   function moveTrace(){
-    var r = trace.getBoundingClientRect(), total = trace.offsetHeight - window.innerHeight;
-    var p = Math.min(.9999, Math.max(0, -r.top / total));
-    var on = r.top < window.innerHeight && r.bottom > 0;
-    if(on && !traceOn){ traceOn = true; requestAnimationFrame(tick); }
-    if(!on && traceOn){ traceOn = false; feeds[4].pause(); }
-    if(on) showStage(Math.floor(p * STAGES.length));
+    var r = trace.getBoundingClientRect();
+    var on = r.top < window.innerHeight * .7 && r.bottom > window.innerHeight * .3;
+    if(on && !traceOn){ traceOn = true; requestAnimationFrame(tick); if(cur < 0) showStage(0); else { var st = STAGES[cur]; if(st.live){ var pv = feeds[4].play(); if(pv && pv.catch) pv.catch(function(){}); } } if(!still) nextAuto(); }
+    if(!on && traceOn){ traceOn = false; feeds[4].pause(); clearTimeout(autoT); }
   }
+  // 押すと次のカメラへ
+  trace.querySelector('.pin').addEventListener('click', function(){ showStage((cur + 1) % STAGES.length); if(!still) nextAuto(); });
 
   /* ---------- 証拠写真：押すと大きく ---------- */
   var lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img'), lbTag = lb.querySelector('.tag');
@@ -1129,11 +1374,222 @@ body.in-intro::after{opacity:0}
   totop.addEventListener('click', function(){ glide(hero.getBoundingClientRect().top + window.scrollY, 900); });
   function moveTop(){ totop.classList.toggle('show', !document.body.classList.contains('in-intro') && hero.getBoundingClientRect().bottom < 0); }
 
+  /* ---------- 作品一覧 案A：プレイヤー窓 ---------- */
+  var WA = [
+    {id:'xV-yHr1IuqY', t:'The Bridge - CASE 01 ティザー', tag:'GAME', img:'th-bridge.webp', d:'異界クライムサスペンスゲーム。4/1 (WED) 配信予定 ／ PC'},
+    {id:'Tl4zfRacQKc', t:'シリアルキラーの独白', tag:'BD', img:'th-dokuhaku.webp', d:'日本に来て2日目。僕の名前は姫野。3日前に日本人になったばかりだ。（CV.鬼灯馨）', sp:'https://open.spotify.com/episode/4SQe4npg4hS9CtULNlqHZv'},
+    {id:'z977UZUiti4', t:'平均8年の話', tag:'BD', img:'th-eight.webp', big:'th-eight2.webp', d:'一途な"恋"だと思ってる…僕はね？（CV.松村悠哉）'},
+    {id:'_zC19Jpo8v0', t:'ペインキラー', tag:'MV', img:'th-painkiller.webp', d:'くおん feat. 姫野・K・ラングス'},
+    {id:'qcX00jwjm70', t:'日本人になったシリアルキラー（いらすとや再現）', tag:'BD', d:'姫野プロジェクト公式ボイスドラマを、いらすとやで再現。'},
+    {id:'V4swEGAR6pA', t:'現代版『死神』告知', tag:'BD', d:'古典落語パロディの一次創作ボイスドラマ。', sp:'https://open.spotify.com/episode/1lgsDpMnkm8Mdm3FeCk5k2'},
+    {id:'YCGxcx52skk', t:'序章 コンセプトムービー', tag:'MOVIE', d:'これは、すべてフィクションです。'},
+    {id:'sjcR98y4FzQ', t:'偽日本人、現る。', tag:'SHORT', short:true, d:'僕の名前は姫野。3日前に日本人になったばかりだ。'},
+    {id:'NpHXbwfWH30', t:'侵蝕 / niki', tag:'MMD', img:'th-shinshoku.webp', d:'MMD × VRoidモデル'},
+    {id:'aZjh_O_P5V4', t:'ヒアソビ / かめりあ', tag:'MMD', img:'th-hiasobi.webp', d:'MMD × VRoidモデル'},
+    {id:'AP-PRf9_k7M', t:'MONSTER / KIRA', tag:'MMD', d:'MMD × VRoidモデル'},
+    {id:'cF6wf949Ev0', t:'Illustration Timelapse', tag:'MAKING', d:'姫野のイラストのメイキング（Full Ver.）'}
+  ];
+  var onSite = /github\.io$/.test(location.hostname);
+  function ytThumb(w){ return w.img || ('https://i.ytimg.com/vi/' + w.id + '/hqdefault.jpg'); }
+  function ytUrl(w){ return w.short ? 'https://youtube.com/shorts/' + w.id : 'https://youtu.be/' + w.id; }
+  var waWins = document.getElementById('waWins'), waModal = document.getElementById('waModal');
+  function winBar(title, closeBtn){ return '<div class="bar"><b>' + title + '</b><i></i><i></i>' + (closeBtn ? '<button type="button" id="waClose" aria-label="閉じる"></button>' : '<i></i>') + '</div>'; }
+  WA.forEach(function(w, i){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'win';
+    b.innerHTML = winBar('REC_' + String(i + 1).padStart(2, '0') + '.mp4', false) +
+      '<div class="scr"><img alt="" loading="lazy" src="' + ytThumb(w) + '"><span class="ph" hidden>' + w.t + '</span></div>' +
+      '<div class="cap"><span>' + w.t + '</span><em>' + w.tag + '</em></div>';
+    var im = b.querySelector('img'); im.addEventListener('error', function(){ im.hidden = true; b.querySelector('.ph').hidden = false; });
+    b.addEventListener('click', function(){ openWA(w, i); });
+    waWins.appendChild(b);
+  });
+  function openWA(w, i){
+    var media = onSite
+      ? '<iframe src="https://www.youtube-nocookie.com/embed/' + w.id + '?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="' + w.t + '"></iframe>'
+      : '<img alt="" src="' + (w.big || ytThumb(w)) + '" style="width:100%;height:100%;object-fit:cover">';
+    waModal.innerHTML = '<div class="win">' + winBar('REC_' + String(i + 1).padStart(2, '0') + '.mp4 ― ' + w.t, true) +
+      '<div class="scr">' + media + '</div><div class="body"><p>' + w.d + '</p><div class="links"><a href="' + ytUrl(w) + '" target="_blank" rel="noopener">▶ YouTubeで見る</a>' +
+      (w.sp ? '<a class="sub" href="' + w.sp + '" target="_blank" rel="noopener">Spotifyで聴く</a>' : '') + '</div></div></div>';
+    waModal.hidden = false;
+    document.getElementById('waClose').addEventListener('click', closeWA);
+  }
+  function closeWA(){ waModal.hidden = true; waModal.innerHTML = ''; }
+  waModal.addEventListener('click', function(e){ if(e.target === waModal) closeWA(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !waModal.hidden) closeWA(); });
+
+  /* ---------- 作品一覧 案C：ネガ反転 → 本来の色 ---------- */
+  var wcGrid = document.getElementById('wcGrid');
+  WA.forEach(function(w, i){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'tile';
+    b.innerHTML = '<img class="neg" alt="" loading="lazy" src="' + ytThumb(w) + '"><span class="ph neg" hidden>' + w.t + '</span><span class="t"><small>' + (w.tag || 'RECORD') + ' / ' + String(i + 1).padStart(2, '0') + '</small>' + w.t + '</span>';
+    var im = b.querySelector('img'); im.addEventListener('error', function(){ im.hidden = true; b.querySelector('.ph').hidden = false; });
+    b.addEventListener('click', function(){ openWA(w, i); });
+    wcGrid.appendChild(b);
+  });
+  var wcSec = document.getElementById('works-c'), wcTick = false;
+  function wcNeg(){
+    wcTick = false;
+    var vh = innerHeight, sr = wcSec.getBoundingClientRect();
+    if(sr.bottom < -50 || sr.top > vh + 50) return;
+    wcSec.querySelectorAll('.neg').forEach(function(el){
+      var host = el.closest('.tile') || el.closest('.lead'), r = host.getBoundingClientRect();
+      // 画面の下から入ってきた時はネガ、画面の真ん中あたりまで来ると本来の色
+      var c = (r.top + r.height / 2) / vh;           // 1=画面の下端, 0.5=真ん中
+      var n = Math.min(1, Math.max(0, (c - 0.5) / 0.4));
+      el.style.setProperty('--n', n.toFixed(3));
+    });
+  }
+  addEventListener('scroll', function(){ if(!wcTick){ wcTick = true; requestAnimationFrame(wcNeg); } }, {passive:true});
+  addEventListener('resize', wcNeg); wcNeg();
+
+  /* ---------- Spotify：盗聴受信機 ---------- */
+  (function(){
+    var MIN = 60, MAX = 110;
+    var CH = [
+      {f:62.9, t:'シリアルキラーの独白', u:'episode/4SQe4npg4hS9CtULNlqHZv'},
+      {f:80.8, t:'現代版『死神』', u:'episode/1lgsDpMnkm8Mdm3FeCk5k2'},
+      {f:99.6, t:'全エピソード（番組）', u:'show/6alyyX3BvO82qsikdIuN0K'}
+    ];
+    var scale = document.getElementById('rxScale'), needle = document.getElementById('rxNeedle'), knob = document.getElementById('rxKnob');
+    var fqEl = document.getElementById('rxFq'), st = document.getElementById('rxSt'), sigs = document.querySelectorAll('#rxSig i'), out = document.getElementById('rxOut');
+    var cv = document.getElementById('rxWave'), cx = cv.getContext('2d');
+    var pos = function(f){ return (f - MIN) / (MAX - MIN) * 100; };
+    for(var f = MIN; f <= MAX; f += 1){
+      var t = document.createElement('span'); t.className = 'rtk'; t.style.left = pos(f) + '%'; t.style.height = (f % 10 === 0 ? 18 : f % 5 === 0 ? 12 : 6) + 'px'; scale.appendChild(t);
+      if(f % 10 === 0){ var n = document.createElement('span'); n.className = 'rnm'; n.style.left = pos(f) + '%'; n.textContent = f; scale.appendChild(n); }
+    }
+    var btnBox = document.getElementById('rxBtns'), chBtns = [];
+    CH.forEach(function(c, i){
+      var m = document.createElement('span'); m.className = 'rch'; m.style.left = pos(c.f) + '%'; m.textContent = 'CH' + (i + 1); scale.appendChild(m);
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = 'CH' + (i + 1) + ' ' + c.f.toFixed(1);
+      b.addEventListener('click', function(){ sweep(c.f); }); btnBox.appendChild(b); chBtns.push(b);
+    });
+    var freq = 71.3, locked = null, loaded = null, loadT = 0;
+    // 砂嵐の音（触った時だけ、小さく）
+    var ac = null, ng = null;
+    function noise(on){
+      try{
+        if(!ac){
+          if(!on) return;
+          ac = new (window.AudioContext || window.webkitAudioContext)();
+          var buf = ac.createBuffer(1, ac.sampleRate, ac.sampleRate), d = buf.getChannelData(0);
+          for(var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+          var src = ac.createBufferSource(); src.buffer = buf; src.loop = true;
+          var bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1800; bp.Q.value = .6;
+          ng = ac.createGain(); ng.gain.value = 0; src.connect(bp); bp.connect(ng); ng.connect(ac.destination); src.start();
+        }
+        ng.gain.setTargetAtTime(on ? .035 : 0, ac.currentTime, .06);
+      }catch(e){}
+    }
+    function setF(f, interacting){
+      freq = Math.max(MIN, Math.min(MAX, f));
+      needle.style.left = pos(freq) + '%';
+      knob.style.transform = 'rotate(' + ((freq - MIN) * 14) + 'deg)';
+      fqEl.firstChild.nodeValue = freq.toFixed(1);
+      var best = null, bd = 99;
+      CH.forEach(function(c){ var d = Math.abs(c.f - freq); if(d < bd){ bd = d; best = c; } });
+      var strength = Math.max(0, 1 - bd / 2.2);
+      sigs.forEach(function(s, k){ s.classList.toggle('on', strength * 6 > k + .3); });
+      var now = bd < .35 ? best : null;
+      if(now !== locked){
+        locked = now;
+        st.textContent = locked ? '▶ RECEIVING: ' + locked.t : (strength > .2 ? '…ザザ… ' + best.t.slice(0, 3) + '…ザ…' : '― NO SIGNAL ―');
+        chBtns.forEach(function(b, k){ b.classList.toggle('on', CH[k] === locked); });
+        clearTimeout(loadT);
+        if(locked){ loadT = setTimeout(load, 350); } else { out.classList.add('off'); }
+      } else if(!locked){
+        st.textContent = strength > .2 ? '…ザザ… ' + best.t.slice(0, 3) + '…ザ…' : '― NO SIGNAL ―';
+      }
+      noise(!!interacting && !locked);
+    }
+    function load(){
+      if(!locked) return;
+      out.classList.remove('off');
+      if(loaded === locked) return; loaded = locked;
+      var url = 'https://open.spotify.com/' + locked.u;
+      out.innerHTML = onSite
+        ? '<iframe src="https://open.spotify.com/embed/' + locked.u + '?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="' + locked.t + '"></iframe>'
+        : '<div class="fake"><span>［ここにSpotifyプレイヤーが出ます（GitHub版）］</span><b>' + locked.t + '</b><a href="' + url + '" target="_blank" rel="noopener">Spotifyで開く ↗</a></div>';
+    }
+    // ドラッグで回す
+    var drag = null;
+    function down(e){ drag = {x:e.clientX, y:e.clientY, f:freq, onScale:e.currentTarget === scale}; e.currentTarget.setPointerCapture(e.pointerId);
+      if(drag.onScale){ var r = scale.getBoundingClientRect(); setF(MIN + (e.clientX - r.left) / r.width * (MAX - MIN), true); drag.f = freq; } }
+    function move(e){ if(!drag) return;
+      if(drag.onScale){ var r = scale.getBoundingClientRect(); setF(MIN + (e.clientX - r.left) / r.width * (MAX - MIN), true); }
+      else setF(drag.f + ((e.clientX - drag.x) - (e.clientY - drag.y)) * .06, true); }
+    function up(){ if(!drag) return; drag = null;
+      var best = null, bd = 99; CH.forEach(function(c){ var d = Math.abs(c.f - freq); if(d < bd){ bd = d; best = c; } });
+      if(bd < 1.6) sweep(best.f, 250); else noise(false); }
+    [scale, knob].forEach(function(el){ el.addEventListener('pointerdown', down); el.addEventListener('pointermove', move); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); });
+    knob.addEventListener('keydown', function(e){ if(e.key === 'ArrowRight' || e.key === 'ArrowUp'){ setF(freq + .1); e.preventDefault(); } if(e.key === 'ArrowLeft' || e.key === 'ArrowDown'){ setF(freq - .1); e.preventDefault(); } });
+    var sw = 0;
+    function sweep(to, dur){
+      cancelAnimationFrame(sw); var from = freq, t0 = performance.now(); dur = dur || 900;
+      (function step(now){ var k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+        setF(from + (to - from) * e, k < 1); if(k < 1) sw = requestAnimationFrame(step); else noise(false); })(t0);
+    }
+    // 画面の波形
+    var visible = false;
+    new IntersectionObserver(function(es){ visible = es[0].isIntersecting; }).observe(cv);
+    (function draw(){
+      requestAnimationFrame(draw); if(!visible) return;
+      var W = cv.width, H = cv.height; cx.clearRect(0, 0, W, H); cx.fillStyle = '#ff3b2a';
+      if(locked){
+        var tt = performance.now() / 1000;
+        for(var x = 0; x < W; x += 6){
+          var a = (Math.sin(x * .05 + tt * 6) * .5 + .5) * (Math.sin(x * .013 - tt * 2.3) * .5 + .5) * (.6 + Math.random() * .4);
+          var h = Math.max(2, a * H); cx.fillRect(x, (H - h) / 2, 4, h);
+        }
+      } else {
+        for(var i = 0; i < 260; i++) cx.fillRect(Math.random() * W, Math.random() * H, 2, 2);
+      }
+    })();
+    setF(freq);
+  })();
+
+  /* ---------- Links案1・案2：元のLinksの中身から作る ---------- */
+  (function(){
+    var groups = [];
+    document.querySelectorAll('#links .lgrid > div').forEach(function(d){
+      var g = {h:d.querySelector('h3').textContent, items:[]};
+      d.querySelectorAll('a').forEach(function(a){
+        var sm = a.querySelector('small'), name = a.firstChild.nodeValue.trim();
+        g.items.push({name:name, sub:sm ? sm.textContent : '', href:a.href});
+      });
+      groups.push(g);
+    });
+    // 案2
+    var c2 = document.getElementById('lk2Tags'), no = 0;
+    groups.forEach(function(g){
+      g.items.forEach(function(it){
+        no++;
+        var a = document.createElement('a'); a.className = 'tag'; a.href = it.href; a.target = '_blank'; a.rel = 'noopener';
+        a.style.setProperty('--r', ((Math.random() * 5) - 2.5).toFixed(1) + 'deg');
+        a.innerHTML = '<span class="no"><span>EVIDENCE No.' + String(no).padStart(2, '0') + '</span><span>' + g.h + '</span></span><b>' + it.name + '</b>' + (it.sub ? '<small>' + it.sub + '</small>' : '') + '<span class="st">押収済</span>';
+        c2.appendChild(a);
+      });
+    });
+    var tags = c2.querySelectorAll('.tag'), sec2 = document.getElementById('links-2'), tk2 = false;
+    function neg2(){
+      tk2 = false; var vh = innerHeight, sr = sec2.getBoundingClientRect();
+      if(sr.bottom < -50 || sr.top > vh + 50) return;
+      tags.forEach(function(el){
+        var r = el.getBoundingClientRect(), c = (r.top + r.height / 2) / vh;
+        el.style.setProperty('--n', Math.min(1, Math.max(0, (c - 0.5) / 0.4)).toFixed(3));
+      });
+    }
+    addEventListener('scroll', function(){ if(!tk2){ tk2 = true; requestAnimationFrame(neg2); } }, {passive:true});
+    addEventListener('resize', neg2); neg2();
+  })();
+
+  document.addEventListener('click', function(e){ var a = e.target.closest && e.target.closest('[data-wa]'); if(!a) return; e.preventDefault(); var k = +a.dataset.wa; openWA(WA[k], k); });
+
   /* ---------- スクロールとリサイズ ---------- */
   var ticking = false;
   function onScroll(){
     if(ticking) return; ticking = true;
-    requestAnimationFrame(function(){ zoom(); moveStory(); moveLayers(); moveMsg(); moveTrace(); moveTop(); checkBottom(); ticking = false; });
+    requestAnimationFrame(function(){ zoom(); moveStory(); moveMsg(); moveTrace(); moveTop(); checkBottom(); ticking = false; });
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', function(){ measure(); sizeStory(); layPrints(); onScroll(); });
@@ -1142,6 +1598,3 @@ body.in-intro::after{opacity:0}
   onScroll();
 })();
 </script>
-
-</body>
-</html>
